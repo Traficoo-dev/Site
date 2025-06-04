@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Obtenir une clé API | Traficoo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0369a1, #1e293b);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">🔑 Obtenir une clé API</h1>
+    <p class="text-gray-600 mb-6 text-center">Remplis le formulaire ci-dessous pour recevoir ta clé API Traficoo.</p>
+
+    <form id="apiForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Nom complet</label>
+        <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-2">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Adresse email</label>
+        <input type="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-2">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Nom du projet</label>
+        <input type="text" name="project" required class="w-full border border-gray-300 rounded-lg px-4 py-2">
+      </div>
+      <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition flex justify-center items-center gap-2">
+        <span class="btn-text">Générer la clé API</span>
+        <svg class="hidden animate-spin h-5 w-5 text-white spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+        </svg>
+      </button>
+    </form>
+
+    <p class="text-xs text-gray-400 mt-4 text-center">
+      En cliquant sur “Générer”, vous acceptez les <a href="conditions-api.html" class="underline hover:text-gray-600">conditions d’utilisation</a>.
+    </p>
+
+    <!-- Résultat (clé simulée) -->
+    <div id="result" class="hidden mt-6 bg-green-100 text-green-800 text-sm font-mono px-4 py-3 rounded-lg"></div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const form = document.getElementById('apiForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const spinner = submitBtn.querySelector('.spinner');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // 🚫 empêche le rechargement
+
+      // Activation du chargement
+      submitBtn.disabled = true;
+      btnText.textContent = "Génération en cours...";
+      spinner.classList.remove('hidden');
+
+      // Simulation d'une requête de 2 secondes
+      setTimeout(() => {
+        const fakeApiKey = "traficoo_" + Math.random().toString(36).substring(2, 16);
+        result.textContent = `Votre clé API : ${fakeApiKey}`;
+        result.classList.remove("hidden");
+
+        btnText.textContent = "Clé générée ✅";
+        spinner.classList.add("hidden");
+        submitBtn.classList.remove("bg-blue-600");
+        submitBtn.classList.add("bg-green-600");
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
