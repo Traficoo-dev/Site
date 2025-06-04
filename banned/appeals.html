@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des bannissements | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .badge-permanent { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .badge-temporary { background-color: #fffbeb; color: #d97706; border: 1px solid #fcd34d; }
+        .badge-appeal { background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Compte</span></h1>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">
+                <i class="fas fa-gavel mr-2 text-blue-500"></i>
+                Gestion des bannissements
+            </h2>
+            <a href="#new-appeal" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition flex items-center">
+                <i class="fas fa-plus mr-2"></i> Nouvelle demande
+            </a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <button class="tab-active px-4 py-2 mr-2 focus:outline-none">
+                <i class="fas fa-ban mr-2"></i> Bannissements actifs
+            </button>
+            <button class="px-4 py-2 mr-2 text-gray-600 hover:text-blue-500 focus:outline-none">
+                <i class="fas fa-history mr-2"></i> Historique
+            </button>
+            <button class="px-4 py-2 text-gray-600 hover:text-blue-500 focus:outline-none">
+                <i class="fas fa-envelope mr-2"></i> Demandes
+            </button>
+        </div>
+
+        <!-- Liste des bannissements -->
+        <section class="mb-12">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="px-6 py-4 bg-gray-50 border-b flex justify-between items-center">
+                    <h3 class="font-bold text-gray-800">
+                        <i class="fas fa-key text-gray-500 mr-2"></i>
+                        Clé API: tk_89x7•••••••••••••••••••••
+                    </h3>
+                    <span class="badge badge-permanent">
+                        <i class="fas fa-lock mr-1"></i> Permanent
+                    </span>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Date</h4>
+                            <p class="font-medium">15/09/2023 14:32</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Raison</h4>
+                            <p class="font-medium">Violation répétée des limites de requêtes</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Statut</h4>
+                            <p class="font-medium text-red-600">Actif</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Détails</h4>
+                            <p class="text-gray-600">
+                                Votre clé API a été désactivée après 5 avertissements pour dépassement des limites de requêtes autorisées (10 000 req/jour au lieu de 1 000 req/jour).
+                            </p>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button class="text-blue-600 hover:text-blue-800 font-medium py-2 px-4 rounded-lg transition flex items-center">
+                            <i class="fas fa-file-alt mr-2"></i> Voir les logs
+                        </button>
+                        <a href="#new-appeal" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition flex items-center">
+                            <i class="fas fa-pen mr-2"></i> Faire appel
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="px-6 py-4 bg-gray-50 border-b flex justify-between items-center">
+                    <h3 class="font-bold text-gray-800">
+                        <i class="fas fa-key text-gray-500 mr-2"></i>
+                        Clé API: tk_42a3•••••••••••••••••••••
+                    </h3>
+                    <span class="badge badge-temporary">
+                        <i class="fas fa-clock mr-1"></i> Jusqu'au 30/10/2023
+                    </span>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Date</h4>
+                            <p class="font-medium">01/10/2023 09:15</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Raison</h4>
+                            <p class="font-medium">Usage commercial non autorisé</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Statut</h4>
+                            <p class="font-medium text-yellow-600">Temporaire</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Détails</h4>
+                            <p class="text-gray-600">
+                                Suspension temporaire pour utilisation de l'API dans un service commercial sans avoir souscrit à la licence professionnelle requise.
+                            </p>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button class="text-blue-600 hover:text-blue-800 font-medium py-2 px-4 rounded-lg transition flex items-center">
+                            <i class="fas fa-file-alt mr-2"></i> Voir les logs
+                        </button>
+                        <a href="#new-appeal" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition flex items-center">
+                            <i class="fas fa-pen mr-2"></i> Faire appel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demandes de recours -->
+        <section id="appeals" class="mb-12">
+            <h3 class="text-xl font-bold text-gray-800 mb-6 border-b pb-2">
+                <i class="fas fa-envelope-open-text mr-2 text-blue-500"></i>
+                Vos demandes de recours
+            </h3>
+
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="px-6 py-4 bg-gray-50 border-b flex justify-between items-center">
+                    <h4 class="font-bold text-gray-800">
+                        Demande #APP-2023-42
+                    </h4>
+                    <span class="badge badge-appeal">
+                        <i class="fas fa-check-circle mr-1"></i> Traitée
+                    </span>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Date</h4>
+                            <p class="font-medium">16/09/2023</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Clé concernée</h4>
+                            <p class="font-mono text-sm">tk_89x7•••••••••••••••••••••</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Réponse</h4>
+                            <p class="font-medium text-green-600">Rejetée</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Votre message</h4>
+                            <p class="text-gray-600 italic">
+                                "Je n'étais pas au courant des limites strictes, je pensais que quelques dépassements étaient tolérés. Pourriez-vous reconsidérer cette sanction ?"
+                            </p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h4 class="text-sm font-medium text-blue-700 mb-1 flex items-center">
+                            <i class="fas fa-reply mr-2"></i>
+                            Réponse du support
+                        </h4>
+                        <p class="text-blue-600">
+                            "Nous avons examiné votre cas mais confirmons la sanction car vous avez systématiquement dépassé les limites pendant 2 semaines. Vous pouvez créer une nouvelle clé API mais veillez à respecter les limites cette fois-ci."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nouvelle demande -->
+        <section id="new-appeal" class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50 border-b">
+                <h3 class="font-bold text-gray-800">
+                    <i class="fas fa-pen mr-2 text-blue-500"></i>
+                    Nouvelle demande de recours
+                </h3>
+            </div>
+            <div class="p-6">
+                <form>
+                    <div class="mb-6">
+                        <label for="api-key" class="block text-sm font-medium text-gray-700 mb-2">Clé API concernée</label>
+                        <select id="api-key" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionnez une clé API</option>
+                            <option value="tk_89x7•••••••••••••••••••••">tk_89x7••••••••••••••••••••• (Bannie - Permanent)</option>
+                            <option value="tk_42a3•••••••••••••••••••••">tk_42a3••••••••••••••••••••• (Bannie - Jusqu'au 30/10/2023)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="appeal-type" class="block text-sm font-medium text-gray-700 mb-2">Type de demande</label>
+                        <select id="appeal-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionnez un type</option>
+                            <option value="appeal">Demande de levée de bannissement</option>
+                            <option value="reduction">Demande de réduction de durée</option>
+                            <option value="explanation">Demande d'explications</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="appeal-message" class="block text-sm font-medium text-gray-700 mb-2">Votre message</label>
+                        <textarea id="appeal-message" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Expliquez en détail pourquoi vous faites appel à cette décision..."></textarea>
+                        <p class="text-sm text-gray-500 mt-1">Maximum 2000 caractères</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Preuves complémentaires</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <div class="flex justify-center mb-2">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Glissez-déposez vos fichiers ici ou</p>
+                            <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition">
+                                <i class="fas fa-folder-open mr-2"></i> Parcourir
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2">Formats acceptés: PDF, JPG, PNG (max. 5MB par fichier)</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-6">
+                        <div class="flex items-center h-5">
+                            <input id="terms" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        </div>
+                        <label for="terms" class="ml-2 block text-sm text-gray-700">
+                            Je certifie que les informations fournies sont exactes et complètes. Les fausses déclarations peuvent entraîner des sanctions supplémentaires.
+                        </label>
+                    </div>
+
+                    <div class="flex justify-end space-x-3">
+                        <button type="reset" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition">
+                            Annuler
+                        </button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition flex items-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Envoyer la demande
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-8 pb-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="pt-6 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2023 Traficoo | Service de support - bannissements@traficoo.fr</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion des tabs
+        const tabs = document.querySelectorAll('.flex.border-b button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                // Ici vous pourriez charger le contenu dynamique correspondant
+            });
+        });
+
+        // Compteur de caractères
+        const textarea = document.getElementById('appeal-message');
+        const charCounter = document.querySelector('textarea + p');
+        
+        textarea.addEventListener('input', () => {
+            const remaining = 2000 - textarea.value.length;
+            charCounter.textContent = `${remaining} caractères restants`;
+            
+            if (remaining < 0) {
+                charCounter.classList.add('text-red-500');
+                charCounter.classList.remove('text-gray-500');
+            } else {
+                charCounter.classList.add('text-gray-500');
+                charCounter.classList.remove('text-red-500');
+            }
+        });
+    </script>
+</body>
+</html>
