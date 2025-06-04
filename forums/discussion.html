@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion - Traficoo Forums</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .header-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #003a6f 100%);
+        }
+        .discussion-bubble {
+            position: relative;
+            background-color: #f8fafc;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+        }
+        .discussion-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #f8fafc transparent;
+        }
+        .vote-btn:hover {
+            transform: scale(1.1);
+        }
+        .prose :where(a):not(:where([class~="not-prose"] *)) {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="../assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:underline"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="../api.html" class="hover:underline"><i class="fas fa-code mr-1"></i> API</a>
+                <a href="../forums.html" class="font-bold underline"><i class="fas fa-comments mr-1"></i> Forums</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="../login.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition">
+                    <i class="fas fa-user mr-2"></i> Connexion
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Fil d'Ariane -->
+        <nav class="flex mb-6 text-sm text-gray-600" aria-label="Fil d'Ariane">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="../forums.html" class="inline-flex items-center hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>
+                        Forums
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                        <span class="text-gray-500">Discussion</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Sujet principal -->
+        <article class="bg-white rounded-xl shadow-md p-6 mb-6 border border-blue-200">
+            <header class="flex justify-between items-start mb-4">
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/50?img=5" alt="Avatar" class="rounded-full mr-4">
+                    <div>
+                        <h1 id="discussion-title" class="text-2xl font-bold text-gray-800">Problème d'authentification avec la nouvelle version de l'API</h1>
+                        <div class="flex flex-wrap items-center text-sm text-gray-500 mt-1">
+                            <span class="mr-3"><i class="fas fa-user mr-1"></i> <span id="author-name">JeanDupont</span></span>
+                            <span><i class="fas fa-clock mr-1"></i> <span id="post-date">Il y a 2 heures</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">API</span>
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium">Urgent</span>
+                </div>
+            </header>
+
+            <div class="prose max-w-none mt-4 mb-6 text-gray-700" id="discussion-content">
+                <p>Bonjour à tous,</p>
+                <p>Depuis la mise à jour vers la v2.1 de l'API ce matin, je n'arrive plus à m'authentifier avec ma clé API. J'utilisais pourtant le code suivant qui fonctionnait parfaitement avant :</p>
+                <pre><code class="language-javascript">const response = await fetch('https://api.traficoo.fr/v2.1/trains', {
+    headers: {
+        'Authorization': `Bearer ${apiKey}`
+    }
+});</code></pre>
+                <p>Maintenant je reçois systématiquement une erreur 401. J'ai essayé :</p>
+                <ul>
+                    <li>De régénérer ma clé API</li>
+                    <li>De vérifier que la clé n'a pas expiré</li>
+                    <li>D'utiliser différents environnements</li>
+                </ul>
+                <p>Quelqu'un a-t-il rencontré le même problème ? Est-ce qu'il y a eu un changement dans le système d'authentification avec la v2.1 ?</p>
+                <p>Merci d'avance pour votre aide !</p>
+            </div>
+
+            <footer class="flex justify-between items-center border-t pt-4">
+                <div class="flex space-x-4">
+                    <button class="text-gray-500 hover:text-blue-600 flex items-center">
+                        <i class="far fa-thumbs-up mr-1"></i> <span id="like-count">12</span>
+                    </button>
+                    <button class="text-gray-500 hover:text-blue-600 flex items-center">
+                        <i class="far fa-comment mr-1"></i> <span id="comment-count">8</span> réponses
+                    </button>
+                </div>
+                <div>
+                    <button class="text-gray-500 hover:text-red-500">
+                        <i class="far fa-flag"></i> Signaler
+                    </button>
+                </div>
+            </footer>
+        </article>
+
+        <!-- Réponses -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-comments text-blue-500 mr-3"></i>
+                Réponses
+            </h2>
+
+            <!-- Réponse 1 -->
+            <article class="bg-white rounded-xl shadow-sm p-6 mb-4">
+                <div class="flex items-start">
+                    <div class="flex flex-col items-center mr-4">
+                        <img src="https://i.pravatar.cc/50?img=12" alt="Avatar" class="rounded-full mb-2">
+                        <div class="flex flex-col items-center">
+                            <button class="vote-btn text-gray-400 hover:text-green-500 transition" title="Voter positif">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="my-1 font-medium text-gray-700">5</span>
+                            <button class="vote-btn text-gray-400 hover:text-red-500 transition" title="Voter négatif">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <span class="font-medium text-gray-800">MarieTech</span>
+                                <span class="text-sm text-gray-500 ml-2">• Membre confirmé</span>
+                            </div>
+                            <span class="text-sm text-gray-500"><i class="far fa-clock mr-1"></i> Il y a 1 heure</span>
+                        </div>
+                        <div class="prose max-w-none text-gray-700 mb-3">
+                            <p>Bonjour Jean,</p>
+                            <p>Effectivement, la v2.1 a introduit un changement dans le header d'authentification. Il faut maintenant utiliser :</p>
+                            <pre><code class="language-javascript">headers: {
+    'Authorization': `TraficooAPI ${apiKey}`
+}</code></pre>
+                            <p>Cette modification est documentée dans les <a href="#" class="text-blue-600">release notes</a> mais je reconnais qu'elle n'était pas très visible.</p>
+                        </div>
+                        <div class="flex space-x-3 text-sm">
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="far fa-thumbs-up mr-1"></i> Utile
+                            </button>
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="fas fa-reply mr-1"></i> Répondre
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Réponse 2 (réponse à la réponse 1) -->
+            <article class="bg-white rounded-xl shadow-sm p-6 mb-4 ml-10">
+                <div class="flex items-start">
+                    <div class="flex flex-col items-center mr-4">
+                        <img src="https://i.pravatar.cc/50?img=3" alt="Avatar" class="rounded-full mb-2">
+                        <div class="flex flex-col items-center">
+                            <button class="vote-btn text-gray-400 hover:text-green-500 transition" title="Voter positif">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="my-1 font-medium text-gray-700">3</span>
+                            <button class="vote-btn text-gray-400 hover:text-red-500 transition" title="Voter négatif">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <span class="font-medium text-gray-800">DevTraficoo</span>
+                                <span class="text-sm text-gray-500 ml-2">• Équipe Traficoo</span>
+                            </div>
+                            <span class="text-sm text-gray-500"><i class="far fa-clock mr-1"></i> Il y a 45 minutes</span>
+                        </div>
+                        <div class="prose max-w-none text-gray-700 mb-3">
+                            <p>@MarieTech a raison, et nous nous excusons pour la gêne occasionnée. Pour compléter :</p>
+                            <ul>
+                                <li>L'ancien format restera supporté pendant 30 jours</li>
+                                <li>Nous avons mis à jour la documentation technique</li>
+                                <li>Un email a été envoyé à tous les développeurs enregistrés</li>
+                            </ul>
+                            <p>N'hésitez pas si vous avez d'autres questions !</p>
+                        </div>
+                        <div class="flex space-x-3 text-sm">
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="far fa-thumbs-up mr-1"></i> Utile
+                            </button>
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="fas fa-reply mr-1"></i> Répondre
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Réponse 3 -->
+            <article class="bg-white rounded-xl shadow-sm p-6 mb-4">
+                <div class="flex items-start">
+                    <div class="flex flex-col items-center mr-4">
+                        <img src="https://i.pravatar.cc/50?img=8" alt="Avatar" class="rounded-full mb-2">
+                        <div class="flex flex-col items-center">
+                            <button class="vote-btn text-gray-400 hover:text-green-500 transition" title="Voter positif">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                            <span class="my-1 font-medium text-gray-700">-1</span>
+                            <button class="vote-btn text-gray-400 hover:text-red-500 transition" title="Voter négatif">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <span class="font-medium text-gray-800">NewbieDev</span>
+                                <span class="text-sm text-gray-500 ml-2">• Nouveau membre</span>
+                            </div>
+                            <span class="text-sm text-gray-500"><i class="far fa-clock mr-1"></i> Il y a 30 minutes</span>
+                        </div>
+                        <div class="prose max-w-none text-gray-700 mb-3">
+                            <p>Moi ça marche toujours pas avec la nouvelle méthode, votre API est nulle !</p>
+                        </div>
+                        <div class="flex space-x-3 text-sm">
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="far fa-thumbs-up mr-1"></i> Utile
+                            </button>
+                            <button class="text-gray-500 hover:text-blue-600">
+                                <i class="fas fa-reply mr-1"></i> Répondre
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-6">
+                <nav class="inline-flex rounded-md shadow">
+                    <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        1
+                    </a>
+                    <a href="#" class="px-3 py-2 border border-gray-300 bg-blue-50 text-blue-600 font-medium">
+                        2
+                    </a>
+                    <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        3
+                    </a>
+                    <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Formulaire de réponse -->
+        <section id="reply-form" class="bg-white rounded-xl shadow-md p-6 mb-12">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-reply text-blue-500 mr-3"></i>
+                Ajouter une réponse
+            </h2>
+            <form>
+                <div class="mb-4">
+                    <textarea rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Votre réponse..."></textarea>
+                    <div class="flex items-center mt-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Le markdown est supporté pour la mise en forme
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 mb-4">
+                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-bold mr-1"></i>
+                    </button>
+                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-italic mr-1"></i>
+                    </button>
+                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-link mr-1"></i>
+                    </button>
+                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-code mr-1"></i>
+                    </button>
+                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-list-ul mr-1"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <input id="notify-reply" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                        <label for="notify-reply" class="ml-2 block text-sm text-gray-700">
+                            M'avertir des nouvelles réponses
+                        </label>
+                    </div>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Publier
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Suggestions -->
+        <section class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+            <h2 class="text-xl font-bold text-blue-700 mb-4 flex items-center">
+                <i class="fas fa-lightbulb mr-3"></i>
+                Discussions similaires
+            </h2>
+            <ul class="space-y-3">
+                <li>
+                    <a href="discussion.html?s=42" class="text-blue-600 hover:underline flex items-center">
+                        <i class="fas fa-comment-dots mr-2 text-blue-400"></i>
+                        Problème similaire avec l'authentification API v2.0
+                    </a>
+                </li>
+                <li>
+                    <a href="discussion.html?s=87" class="text-blue-600 hover:underline flex items-center">
+                        <i class="fas fa-comment-dots mr-2 text-blue-400"></i>
+                        Documentation manquante pour les changements v2.1
+                    </a>
+                </li>
+                <li>
+                    <a href="discussion.html?s=23" class="text-blue-600 hover:underline flex items-center">
+                        <i class="fas fa-comment-dots mr-2 text-blue-400"></i>
+                        FAQ: Erreurs 401 fréquentes et solutions
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="../assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        La communauté des passionnés de transports et de technologie.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Forums</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../forums.html" class="text-gray-400 hover:text-white transition">Catégories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Règles</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Membres</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contacter la modération</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Signalement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li><a href="../confidentialite.html" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo - Forums communautaires. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simulation de récupération des paramètres d'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sujetId = urlParams.get('s');
+        
+        // En production, vous feriez une requête API ici pour récupérer les données du sujet
+        console.log("Chargement du sujet ID:", sujetId);
+        
+        // Exemple de modification dynamique basée sur l'ID
+        if (sujetId === "42") {
+            document.getElementById('discussion-title').textContent = "Problème similaire avec l'authentification API v2.0";
+            document.getElementById('author-name').textContent = "SarahDev";
+            document.getElementById('post-date').textContent = "Hier, 15:42";
+            document.getElementById('discussion-content').innerHTML = `
+                <p>J'ai rencontré un problème similaire lors de la précédente mise à jour majeure.</p>
+                <p>Voici comment j'ai résolu le problème...</p>
+            `;
+        }
+        
+        // Gestion du formulaire de réponse (simulation)
+        const replyForm = document.getElementById('reply-form');
+        const isLoggedIn = false; // Changer à true pour voir le formulaire
+
+        if (!isLoggedIn) {
+            replyForm.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="bg-blue-50 inline-block p-3 rounded-full mb-3">
+                        <i class="fas fa-user-lock text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Connectez-vous pour répondre</h3>
+                    <p class="text-gray-600 mb-3">Vous devez être connecté pour participer à cette discussion.</p>
+                    <a href="../login.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition inline-flex items-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
+                    </a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
