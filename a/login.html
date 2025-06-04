@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .auth-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #0066cc 100%);
+        }
+        .auth-card {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .grecaptcha-badge { 
+            visibility: hidden; /* Optionnel pour reCAPTCHA v3 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="auth-gradient text-white">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="w-full max-w-md">
+            <!-- Carte d'authentification -->
+            <div class="bg-white auth-card overflow-hidden">
+                <!-- Tabs -->
+                <div class="flex border-b">
+                    <button id="login-tab" class="tab-active flex-1 py-4 font-medium text-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Connexion
+                    </button>
+                    <button id="register-tab" class="flex-1 py-4 font-medium text-center text-gray-500 hover:text-blue-500">
+                        <i class="fas fa-user-plus mr-2"></i> Inscription
+                    </button>
+                </div>
+
+                <!-- Formulaire de Login -->
+                <div id="login-form" class="p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Bienvenue à nouveau</h2>
+                    <p class="text-gray-600 mb-6">Connectez-vous pour accéder à votre compte</p>
+
+                    <form id="loginForm" class="space-y-5">
+                        <div>
+                            <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input type="email" id="login-email" class="input-field pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="votre@email.com" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="login-password" class="input-field pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="••••••••" required>
+                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" id="toggle-login-password">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="flex justify-end mt-1">
+                                <a href="#" class="text-sm text-blue-600 hover:underline">Mot de passe oublié ?</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Se souvenir de moi</label>
+                        </div>
+
+                        <!-- reCAPTCHA v3 (invisible) -->
+                        <input type="hidden" id="login-recaptcha" name="recaptcha-response">
+                        
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200 g-recaptcha"
+                                data-sitekey="6LfIdE8rAAAAACLRbQdHdUMKMAGy70PFzYhxUWZ5" 
+                                data-callback='onLoginSubmit' 
+                                data-action='login'>
+                            Se connecter
+                        </button>
+
+                        <div class="relative my-6">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Ou continuer avec</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg bg-white hover:bg-gray-50">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="h-5 mr-2">
+                                <span class="text-sm font-medium text-gray-700">Google</span>
+                            </button>
+                            <button type="button" class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg bg-white hover:bg-gray-50">
+                                <i class="fab fa-github text-gray-700 mr-2"></i>
+                                <span class="text-sm font-medium text-gray-700">GitHub</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Formulaire d'Inscription -->
+                <div id="register-form" class="hidden p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Créez votre compte</h2>
+                    <p class="text-gray-600 mb-6">Rejoignez la communauté Traficoo</p>
+
+                    <form id="registerForm" class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="register-firstname" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+                                <input type="text" id="register-firstname" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Jean" required>
+                            </div>
+                            <div>
+                                <label for="register-lastname" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                                <input type="text" id="register-lastname" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Dupont" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input type="email" id="register-email" class="input-field pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="votre@email.com" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="register-password" class="input-field pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="••••••••" required>
+                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" id="toggle-register-password">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">8 caractères minimum avec chiffres et lettres</p>
+                        </div>
+
+                        <div>
+                            <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="register-confirm-password" class="input-field pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="••••••••" required>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input id="accept-terms" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1" required>
+                            <label for="accept-terms" class="ml-2 block text-sm text-gray-700">
+                                J'accepte les <a href="cgu.html" class="text-blue-600 hover:underline">Conditions d'utilisation</a> et la <a href="confidentialite.html" class="text-blue-600 hover:underline">Politique de confidentialité</a>
+                            </label>
+                        </div>
+
+                        <!-- reCAPTCHA v2 (case à cocher) -->
+                        <div class="g-recaptcha" data-sitekey="6Lf0c08rAAAAADwamTUYMOvSKBH6M1YEsPi0cCM0"></div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200">
+                            S'inscrire
+                        </button>
+
+                        <p class="text-sm text-gray-600 text-center">
+                            Déjà membre ? <button type="button" id="switch-to-login" class="text-blue-600 hover:underline font-medium">Connectez-vous</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-600 text-sm">
+            <p>© 2025 Traficoo. Tous droits réservés.</p>
+            <div class="mt-2">
+                <a href="cgu.html" class="hover:underline mx-2">Conditions d'utilisation</a>
+                <a href="confidentialite.html" class="hover:underline mx-2">Confidentialité</a>
+                <a href="contact.html" class="hover:underline mx-2">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Basculer entre Login et Register
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const switchToLogin = document.getElementById('switch-to-login');
+
+        [loginTab, switchToLogin].forEach(el => {
+            el.addEventListener('click', () => {
+                loginTab.classList.add('tab-active');
+                loginTab.classList.remove('text-gray-500');
+                registerTab.classList.remove('tab-active');
+                registerTab.classList.add('text-gray-500');
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            });
+        });
+
+        registerTab.addEventListener('click', () => {
+            registerTab.classList.add('tab-active');
+            registerTab.classList.remove('text-gray-500');
+            loginTab.classList.remove('tab-active');
+            loginTab.classList.add('text-gray-500');
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        });
+
+        // Basculer la visibilité des mots de passe
+        function setupPasswordToggle(buttonId, inputId) {
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+            
+            button.addEventListener('click', () => {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                button.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+            });
+        }
+
+        setupPasswordToggle('toggle-login-password', 'login-password');
+        setupPasswordToggle('toggle-register-password', 'register-password');
+
+        // Callback pour reCAPTCHA login
+        function onLoginSubmit(token) {
+            document.getElementById('login-recaptcha').value = token;
+            document.getElementById('loginForm').submit();
+        }
+
+        // Validation du formulaire d'inscription
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Vérification côté client
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const recaptcha = grecaptcha.getResponse();
+            
+            if (password !== confirmPassword) {
+                alert('Les mots de passe ne correspondent pas !');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Le mot de passe doit contenir au moins 8 caractères');
+                return;
+            }
+            
+            if (!recaptcha) {
+                alert('Veuillez valider le reCAPTCHA');
+                return;
+            }
+            
+            // Soumission du formulaire
+            this.submit();
+        });
+
+        // Initialisation reCAPTCHA pour le login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!document.getElementById('login-recaptcha').value) {
+                alert('Veuillez valider le reCAPTCHA');
+                return;
+            }
+            this.submit();
+        });
+    </script>
+</body>
+</html>
