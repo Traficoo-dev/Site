@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidentialité - Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .header-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #003a6f 100%);
+        }
+        .highlight-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+            <a href="index.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition">
+                <i class="fas fa-arrow-left mr-2"></i> Retour
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenu -->
+    <main class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Politique de Confidentialité</h1>
+            <p class="text-gray-500 mb-6">Dernière mise à jour : 20/05/2025</p>
+
+            <!-- Introduction -->
+            <section class="mb-8 highlight-box p-4 rounded">
+                <p class="text-gray-700">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    Traficoo s'engage à protéger vos données. Cette politique explique comment nous collectons, utilisons et protégeons vos informations.
+                </p>
+            </section>
+
+            <!-- 1. Responsable -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">1. Responsable du traitement</h2>
+                <p class="text-gray-600">
+                    <strong>Traficoo</strong> - Projet bénévole non commercial<br>
+                    Contact : <a href="mailto:contact@traficoo.fr" class="text-blue-600 hover:underline">contact@traficoo.fr</a>
+                </p>
+            </section>
+
+            <!-- 2. Données collectées -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">2. Données collectées</h2>
+                <div class="text-gray-600 space-y-3">
+                    <p><strong>a) Données techniques :</strong></p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Adresse IP (anonymisée)</li>
+                        <li>Type de navigateur et appareil</li>
+                        <li>Pages consultées (via cookies strictement nécessaires)</li>
+                    </ul>
+
+                    <p><strong>b) Données optionnelles :</strong></p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Email (si inscription à des alertes)</li>
+                        <li>Préférences de transport (stockées localement)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. Finalités -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">3. Finalités du traitement</h2>
+                <div class="text-gray-600 grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-700 mb-1"><i class="fas fa-chart-line text-blue-500 mr-2"></i>Analyses</h3>
+                        <p class="text-sm">Mesure d'audience (Matomo/Google Analytics anonymisé)</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-700 mb-1"><i class="fas fa-bell text-blue-500 mr-2"></i>Fonctionnalités</h3>
+                        <p class="text-sm">Personnalisation des alertes trafic</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Cookies -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">4. Cookies</h2>
+                <table class="w-full text-gray-600 text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-2 text-left">Cookie</th>
+                            <th class="p-2 text-left">Finalité</th>
+                            <th class="p-2 text-left">Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-2">traficoo_session</td>
+                            <td class="p-2">Fonctionnement du site</td>
+                            <td class="p-2">24h</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2">_ga (optionnel)</td>
+                            <td class="p-2">Analyses</td>
+                            <td class="p-2">13 mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mt-3 text-gray-600 text-sm">
+                    <i class="fas fa-cookie-bite text-blue-500 mr-1"></i>
+                    Vous pouvez désactiver les cookies non essentiels via notre <a href="#" class="text-blue-600 hover:underline">bannière de consentement</a>.
+                </p>
+            </section>
+
+            <!-- 5. Droits RGPD -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">5. Vos droits</h2>
+                <div class="text-gray-600 space-y-3">
+                    <p>Conformément au RGPD, vous pouvez :</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Accéder</strong> à vos données ou les <strong>rectifier</strong></li>
+                        <li>Demander leur <strong>effacement</strong></li>
+                        <li><strong>Limiter</strong> leur traitement</li>
+                        <li>Vous <strong>opposer</strong> à leur utilisation</li>
+                    </ul>
+                    <p>
+                        Pour exercer ces droits, contactez-nous à <a href="mailto:donnees@traficoo.fr" class="text-blue-600 hover:underline">donnees@traficoo.fr</a>.
+                        Réponse sous <strong>1 mois</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 6. Sécurité -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">6. Sécurité</h2>
+                <div class="text-gray-600 space-y-2">
+                    <p>Nous mettons en œuvre :</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>HTTPS et chiffrement des données</li>
+                        <li>Stockage limité à l'UE (hébergeur OVH/SCALEWAY)</li>
+                        <li>Accès restreint aux données</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. Modifications -->
+            <section>
+                <h2 class="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">7. Modifications</h2>
+                <p class="text-gray-600">
+                    Cette politique peut être mise à jour. Nous vous informerons via un banner sur le site.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Informations trafic en temps réel. Projet bénévole non commercial.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="mentions-legales.html" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
+                        <li><a href="cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li><a href="confidentialite.html" class="text-white font-medium transition">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Conforme RGPD</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

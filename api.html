@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Traficoo | Accès développeurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        .endpoint-method {
+            font-family: monospace;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+        .method-get { background-color: #10b981; color: white; }
+        .method-post { background-color: #f59e0b; color: white; }
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .hljs { background: #1e293b !important; border-radius: 6px; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">API</span></h1>
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="api/key/create/new.html" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm transition">
+                    <i class="fas fa-key mr-1"></i> Obtenir une clé
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Introduction -->
+        <section class="mb-16 text-center">
+            <div class="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-lg inline-block">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-code text-blue-500 mr-3"></i>
+                    API Traficoo
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Accédez en temps réel aux données de trafic SNCF, RATP, TER et transports urbains via une API unifiée et documentée.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="text-blue-500 text-3xl mb-4">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Temps réel</h3>
+                <p class="text-gray-600">
+                    Données mises à jour toutes les 30 secondes directement depuis les opérateurs.
+                </p>
+            </div>
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="text-green-500 text-3xl mb-4">
+                    <i class="fas fa-unlock"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Open Data</h3>
+                <p class="text-gray-600">
+                    Accès gratuit jusqu'à 1000 requêtes/jour. Licence libre pour les projets non-commerciaux.
+                </p>
+            </div>
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="text-purple-500 text-3xl mb-4">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Unifié</h3>
+                <p class="text-gray-600">
+                    Une seule API pour tous les réseaux de transport français.
+                </p>
+            </div>
+        </section>
+
+        <!-- Documentation -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+                <i class="fas fa-book-open text-blue-500 mr-2"></i>
+                Documentation
+            </h2>
+            
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200 mb-6">
+                <button class="tab-active px-4 py-2 mr-2 focus:outline-none">
+                    <i class="fas fa-train mr-2"></i> SNCF
+                </button>
+                <button class="px-4 py-2 mr-2 text-gray-600 hover:text-blue-500 focus:outline-none">
+                    <i class="fas fa-subway mr-2"></i> RATP
+                </button>
+                <button class="px-4 py-2 mr-2 text-gray-600 hover:text-blue-500 focus:outline-none">
+                    <i class="fas fa-map-marked-alt mr-2"></i> TER
+                </button>
+                <button class="px-4 py-2 text-gray-600 hover:text-blue-500 focus:outline-none">
+                    <i class="fas fa-bus mr-2"></i> Urbain
+                </button>
+            </div>
+            
+            <!-- Endpoint -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <div class="px-6 py-4 bg-gray-800 text-white flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="endpoint-method method-get mr-3">GET</span>
+                        <span class="font-mono">v1/sncf/trains</span>
+                    </div>
+                    <button class="text-gray-300 hover:text-white" onclick="copyCode('sncf-example')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-gray-800 mb-3">Liste des trains</h3>
+                    <p class="text-gray-600 mb-4">
+                        Retourne la liste des prochains départs pour une gare donnée avec leur statut en temps réel.
+                    </p>
+                    
+                    <h4 class="font-medium text-gray-700 mb-2">Paramètres</h4>
+                    <table class="w-full text-sm text-gray-600 mb-6">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Nom</th>
+                                <th class="px-4 py-2 text-left">Type</th>
+                                <th class="px-4 py-2 text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-2 font-mono">station</td>
+                                <td class="px-4 py-2">string</td>
+                                <td class="px-4 py-2">Code UIC de la gare (ex: FRPAR)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 font-mono">limit</td>
+                                <td class="px-4 py-2">integer</td>
+                                <td class="px-4 py-2">Nombre de résultats (défaut: 10)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4 class="font-medium text-gray-700 mb-2">Exemple de requête</h4>
+                    <pre id="sncf-example" class="mb-6 rounded-lg"><code class="language-http">GET https://api-traficoo.eletrix.fr/v1/sncf/trains?station=FRPAR&limit=5
+Authorization: Bearer VOTRE_CLE_API</code></pre>
+                    
+                    <h4 class="font-medium text-gray-700 mb-2">Réponse</h4>
+                    <div class="relative">
+                        <button onclick="copyCode('sncf-response')" class="absolute right-2 top-2 text-gray-400 hover:text-white">
+                            <i class="far fa-copy"></i>
+                        </button>
+                        <pre id="sncf-response" class="rounded-lg"><code class="language-json">{
+  "status": "success",
+  "data": {
+    "station": "Paris Gare de Lyon",
+    "last_update": "2023-09-12T14:30:00Z",
+    "trains": [
+      {
+        "id": "TGV8765",
+        "type": "TGV INOUI",
+        "departure": "Paris Gare de Lyon",
+        "arrival": "Marseille St Charles",
+        "departure_time": "2023-09-12T15:12:00+02:00",
+        "status": "on_time",
+        "delay": 0,
+        "platform": "12"
+      },
+      {
+        "id": "TER34567",
+        "type": "TER",
+        "departure": "Paris Gare de Lyon",
+        "arrival": "Dijon",
+        "departure_time": "2023-09-12T15:30:00+02:00",
+        "status": "delayed",
+        "delay": 15,
+        "platform": "8"
+      }
+    ]
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SDKs -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+                <i class="fas fa-box-open text-blue-500 mr-2"></i>
+                Bibliothèques client
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                    <div class="px-6 py-4 bg-gray-50 border-b flex items-center">
+                        <i class="fab fa-js text-yellow-500 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-gray-800">JavaScript/Node.js</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Client officiel pour les applications web et serveur Node.js.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-lg transition flex items-center">
+                                <i class="fab fa-npm mr-2"></i> Pas encore disponible
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition flex items-center">
+                                <i class="fab fa-github mr-2"></i> Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                    <div class="px-6 py-4 bg-gray-50 border-b flex items-center">
+                        <i class="fab fa-python text-blue-500 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-gray-800">Python</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Bibliothèque Python pour l'analyse de données de transport.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-lg transition flex items-center">
+                                <i class="fas fa-box mr-2"></i> Pas encore disponible
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition flex items-center">
+                                <i class="fab fa-github mr-2"></i> Exemples
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-8 md:p-12 text-center text-white">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à intégrer nos données ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Obtenez votre clé API gratuitement et commencez dès maintenant.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="api/key/create/new.html" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-8 rounded-full transition flex items-center">
+                    <i class="fas fa-key mr-2"></i> Obtenir une clé API
+                </a>
+                <a href="support.html" class="bg-white/10 hover:bg-white/20 font-medium py-3 px-8 rounded-full transition flex items-center">
+                    <i class="fas fa-question-circle mr-2"></i> Support technique
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        API unifiée pour les données de transport en France.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Documentation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">SNCF</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">RATP</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">TER</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Transports urbains</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Bibliothèques client</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Playground API</a></li>
+                        <li><a href="link/statut.html" class="text-gray-400 hover:text-white transition">Statut du service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="cgu.html" class="text-gray-400 hover:text-white transition">Conditions d'utilisation</a></li>
+                        <li><a href="confidentialite.html" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
+                        <li><a href="licence.html" class="text-gray-400 hover:text-white transition">Licence API</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Données sous licence Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        // Activation de la coloration syntaxique
+        hljs.highlightAll();
+        
+        // Fonction de copie
+        function copyCode(elementId) {
+            const element = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(element);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Feedback visuel
+            const original = element.previousElementSibling.querySelector('i');
+            original.classList.replace('fa-copy', 'fa-check');
+            setTimeout(() => {
+                original.classList.replace('fa-check', 'fa-copy');
+            }, 2000);
+        }
+        
+        // Gestion des tabs
+        const tabs = document.querySelectorAll('.flex.border-b button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                // Ici vous pourriez charger le contenu dynamique de l'API correspondante
+            });
+        });
+    </script>
+</body>
+</html>

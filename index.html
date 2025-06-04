@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traficoo - Toutes les infos trafic en temps réel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Traficoo - Toutes les infos trafic en temps réel" />
+    <meta property="og:description" content="SNCF, RATP, TER, Transports urbains - Toutes les infos trafic en un seul endroit" />
+    <meta property="og:image" content="traficoo.eletrix.fr/assets/tubmail.jpg" />
+    <meta property="og:url" content="https://traficoo.eletrix.fr" />
+    <meta property="og:type" content="website" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --sncf-blue: #003a70;
+            --ratp-blue: #003a6f;
+            --ter-green: #00843d;
+            --transdev-red: #e2001a;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, var(--sncf-blue) 0%, var(--ratp-blue) 100%);
+        }
+        
+        .sncf-bg { background-color: var(--sncf-blue); }
+        .ratp-bg { background-color: var(--ratp-blue); }
+        .ter-bg { background-color: var(--ter-green); }
+        .transdev-bg { background-color: var(--transdev-red); }
+        
+        .transport-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-normal {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-warning {
+            background-color: #fef08a;
+            color: #854d0e;
+        }
+        
+        .status-alert {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .api-badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Styles pour le mode sombre */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important;
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .text-gray-600 {
+            color: #a0aec0 !important;
+        }
+
+        .dark-mode .bg-gray-50 {
+            background-color: #4a5568 !important;
+        }
+
+        .dark-mode .border-gray-200 {
+            border-color: #4a5568 !important;
+        }
+
+        /* Styles pour le défilement des messages */
+        .scrolling-messages {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .scrolling-messages-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+
+          .alert-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid orange;
+    background-color: #fff4e5;
+    color: #663c00;
+    padding: 10px 15px;
+    border-radius: 5px;
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+  }
+  .alert-icon {
+    font-size: 24px;
+    margin-right: 12px;
+  }
+  .alert-text {
+    font-size: 16px;
+  }
+    </style>
+</head>
+<body>
+    <!-- Alertes trafic -->
+    <div id="traffic-alerts" class="bg-black text-white py-2 px-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center scrolling-messages">
+                <div class="scrolling-messages-content">
+                    <span class="relative flex h-3 w-3 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+                    </span>
+                    <span class="text-sm font-medium">Chargement des alertes en cours...</span>
+                </div>
+            </div>
+            <button class="text-gray-300 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo France Trafic" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="text-white hover:text-yellow-300 transition flex items-center">
+                    <i class="fas fa-home mr-2"></i> Accueil
+                </a>
+                <a href="#" class="text-white hover:text-yellow-300 transition flex items-center">
+                    <i class="fas fa-train mr-2"></i> Trains
+                </a>
+                <a href="#" class="text-white hover:text-yellow-300 transition flex items-center">
+                    <i class="fas fa-subway mr-2"></i> Métro/RER
+                </a>
+                <a href="#" class="text-white hover:text-yellow-300 transition flex items-center">
+                    <i class="fas fa-bus mr-2"></i> Bus/Transports urbains
+                </a>
+                <a href="api.html" class="text-white hover:text-yellow-300 transition flex items-center">
+                    <i class="fas fa-code mr-2"></i> API
+                </a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="text-white hover:text-yellow-300 transition">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <button class="md:hidden text-white" id="mobileMenuBtn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileNav" class="hidden md:hidden bg-blue-900 pb-4 px-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-white py-2 px-3 rounded hover:bg-blue-800 transition flex items-center">
+                    <i class="fas fa-home w-6 mr-2"></i> Accueil
+                </a>
+                <a href="sncf.html" class="text-white py-2 px-3 rounded hover:bg-blue-800 transition flex items-center">
+                    <i class="fas fa-train w-6 mr-2"></i> Trains
+                </a>
+                <a href="lignes.html" class="text-white py-2 px-3 rounded hover:bg-blue-800 transition flex items-center">
+                    <i class="fas fa-subway w-6 mr-2"></i> Métros
+                </a>
+                <a href="lignes.html" class="text-white py-2 px-3 rounded hover:bg-blue-800 transition flex items-center">
+                    <i class="fas fa-bus w-6 mr-2"></i> Bus/Transports urbains
+                </a>
+                <a href="api.html" class="text-white py-2 px-3 rounded hover:bg-blue-800 transition flex items-center">
+                    <i class="fas fa-code w-6 mr-2"></i> API
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="relative bg-gray-900 text-white">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="assets/tubmail.jpg" 
+                 alt="Transport en France" 
+                 class="w-full h-full object-cover opacity-40">
+        </div>
+        
+        <div class="relative container mx-auto px-4 py-20 md:py-32">
+            <div class="max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 animate__animated animate__fadeInUp">Toutes les infos trafic en un seul endroit</h2>
+                <p class="text-xl md:text-2xl mb-8 text-gray-200 animate__animated animate__fadeInUp animate__delay-1s">
+                    SNCF, RATP, TER, Transports urbains - Consultez en temps réel l'état du trafic sur l'ensemble du réseau français
+                </p>
+                            <div class="alert-box">
+  <div class="alert-icon">⚠️</div>
+  <div class="alert-text">Attention, le site est en construction donc merci de ne pas faire confiance au site sur les informations trafics !</div>
+</div>
+                
+                <div class="flex flex-wrap gap-4 animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="#transport-networks" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-6 rounded-full transition flex items-center">
+                        <i class="fas fa-network-wired mr-2"></i> Voir les réseaux
+                    </a>
+                    <a href="api.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition flex items-center">
+                        <i class="fas fa-code mr-2"></i> Accéder à l'API
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Réseaux de transport -->
+    <section id="transport-networks" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Réseaux disponibles</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Accédez aux informations en temps réel pour chaque réseau de transport en France
+                </p>
+                
+                <!-- Messages défilants -->
+                <div class="mt-6 bg-gray-100 rounded-lg p-3 max-w-4xl mx-auto">
+                    <div class="flex items-center scrolling-messages">
+                        <div class="scrolling-messages-content flex items-center space-x-8">
+                            <span class="flex items-center">
+                                <span class="relative flex h-2 w-2 mr-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                                <span class="text-sm font-medium text-gray-700">SNCF : Trafic normal sur l'ensemble du réseau</span>
+                            </span>
+                            <span class="flex items-center">
+                                <span class="relative flex h-2 w-2 mr-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                                </span>
+                                <span class="text-sm font-medium text-gray-700">RATP : Perturbations sur la ligne 13 en raison d'un incident technique</span>
+                            </span>
+                            <span class="flex items-center">
+                                <span class="relative flex h-2 w-2 mr-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                                </span>
+                                <span class="text-sm font-medium text-gray-700">Transports urbains : Grève prévue demain sur plusieurs réseaux</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- SNCF -->
+                <div class="transport-card bg-white rounded-xl overflow-hidden border border-gray-200">
+                    <div class="sncf-bg h-3"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/sncf.png" 
+                                 alt="SNCF" 
+                                 class="h-12 object-contain mr-4">
+                            <div>
+                                <h3 class="font-bold text-lg">SNCF</h3>
+                                <span class="status-badge status-normal">
+                                    <span class="relative flex h-2 w-2 mr-1">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                    </span>
+                                    Normal
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">TGV, Intercités, Transilien - État du trafic en temps réel</p>
+                        <div class="flex justify-between items-center">
+                            <a href="sncf.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                Voir les infos
+                                <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </a>
+                            <span class="text-xs text-gray-500">Mis à jour il y a 2 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RATP -->
+                <div class="transport-card bg-white rounded-xl overflow-hidden border border-gray-200">
+                    <div class="ratp-bg h-3"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/ratp.png" 
+                                 alt="RATP" 
+                                 class="h-12 object-contain mr-4">
+                            <div>
+                                <h3 class="font-bold text-lg">RATP</h3>
+                                <span class="status-badge status-warning">
+                                    <span class="relative flex h-2 w-2 mr-1">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                                    </span>
+                                    Perturbations
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Métro, RER, Bus - Perturbations et travaux en cours</p>
+                        <div class="flex justify-between items-center">
+                            <a href="ratp.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                Voir les infos
+                                <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </a>
+                            <span class="text-xs text-gray-500">Mis à jour il y a 1 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TER -->
+                <div class="transport-card bg-white rounded-xl overflow-hidden border border-gray-200">
+                    <div class="ter-bg h-3"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/ter.png" 
+                                 alt="TER" 
+                                 class="h-12 object-contain mr-4">
+                            <div>
+                                <h3 class="font-bold text-lg">TER</h3>
+                                <span class="status-badge status-normal">
+                                    <span class="relative flex h-2 w-2 mr-1">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                    </span>
+                                    Normal
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Trains régionaux - Toutes les régions de France</p>
+                        <div class="flex justify-between items-center">
+                            <a href="ter.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                Voir les infos
+                                <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </a>
+                            <span class="text-xs text-gray-500">Mis à jour il y a 5 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transports urbains -->
+                <div class="transport-card bg-white rounded-xl overflow-hidden border border-gray-200">
+                    <div class="transdev-bg h-3"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/autre_logo.png" 
+                                 alt="Transports urbains" 
+                                 class="h-12 object-contain mr-4">
+                            <div>
+                                <h3 class="font-bold text-lg">Transports urbains</h3>
+                                <span class="status-badge status-alert">
+                                    <span class="relative flex h-2 w-2 mr-1">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                                    </span>
+                                    Grèves
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Bus, Tram, Métro - Toutes les villes de France</p>
+                        <div class="flex justify-between items-center">
+                            <a href="lignes.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                Voir les infos
+                                <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                            </a>
+                            <span class="text-xs text-gray-500">Mis à jour il y a 10 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                    Voir tous les réseaux (50+)
+                    <i class="fas fa-chevron-down ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section id="api-section" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                    <div class="bg-gray-900 text-white px-6 py-4 flex items-center">
+                        <i class="fas fa-code text-xl mr-3"></i>
+                        <h2 class="text-xl font-bold">API traficoo</h2>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">Accédez à toutes nos données</h3>
+                            <p class="text-gray-600 mb-4">
+                                Notre API publique vous permet d'intégrer les données trafic en temps réel dans vos applications. 
+                                Tous les réseaux de transport français sont disponibles via une interface unique et documentée.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="api-badge rounded-lg p-4">
+                                    <div class="font-bold mb-1 flex items-center">
+                                        <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+                                        Temps réel
+                                    </div>
+                                    <div class="text-sm">Données mises à jour en continu</div>
+                                </div>
+                                <div class="api-badge rounded-lg p-4">
+                                    <div class="font-bold mb-1 flex items-center">
+                                        <i class="fas fa-universal-access text-blue-500 mr-2"></i>
+                                        Open Data
+                                    </div>
+                                    <div class="text-sm">Accès gratuit aux données</div>
+                                </div>
+                                <div class="api-badge rounded-lg p-4">
+                                    <div class="font-bold mb-1 flex items-center">
+                                        <i class="fas fa-network-wired text-green-500 mr-2"></i>
+                                        50+ réseaux
+                                    </div>
+                                    <div class="text-sm">Tous les transporteurs français</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium text-gray-700 mb-2 flex items-center">
+                                <i class="fas fa-key mr-2 text-gray-500"></i>
+                                Exemple de requête API
+                            </h4>
+                            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                                <div class="px-4 py-2 bg-gray-700 text-gray-300 text-sm flex justify-between items-center">
+                                    <span>GET /v1/sncf/trains</span>
+                                    <button class="text-gray-400 hover:text-white">
+                                        <i class="far fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre class="p-4 text-gray-200 text-sm overflow-x-auto"><code>{
+  "status": "success",
+  "data": {
+    "network": "SNCF",
+    "last_update": "2023-06-15T14:30:00Z",
+    "trains": [
+      {
+        "id": "TGV8765",
+        "departure": "Paris Gare de Lyon",
+        "arrival": "Marseille St Charles",
+        "status": "on_time",
+        "delay": 0
+      },
+      {
+        "id": "TGV1234",
+        "departure": "Paris Montparnasse",
+        "arrival": "Bordeaux St Jean",
+        "status": "delayed",
+        "delay": 15
+      }
+    ]
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition flex items-center">
+                                <i class="fas fa-book-open mr-2"></i> Documentation
+                            </a>
+                            <a href="api/key/create/new.html" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-lg transition flex items-center">
+                                <i class="fas fa-key mr-2"></i> Obtenir une clé API
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Pourquoi choisir Traficoo ?</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Une solution complète pour tous vos besoins en information transport
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+                        <i class="fas fa-clock text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Temps réel</h3>
+                    <p class="text-gray-600">
+                        Données actualisées en continu directement depuis les opérateurs de transport.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <div class="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-green-600">
+                        <i class="fas fa-map-marked-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Couverture nationale</h3>
+                    <p class="text-gray-600">
+                        Tous les réseaux de transport français en un seul endroit.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-purple-600">
+                        <i class="fas fa-code text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">API puissante</h3>
+                    <p class="text-gray-600">
+                        Intégrez facilement nos données dans vos applications.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à simplifier vos déplacements ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Accédez dès maintenant à toutes les informations trafic en France
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="api.html" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-8 rounded-full transition flex items-center">
+                    <i class="fas fa-rocket mr-2"></i> Commencer maintenant
+                </a>
+                <a href="link/documentation.html" class="bg-white/10 hover:bg-white/20 font-medium py-3 px-8 rounded-full transition flex items-center border border-white/20">
+                    <i class="fas fa-book mr-2"></i> Lire la documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+<footer class="bg-gray-900 text-white pt-12 pb-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4 flex items-center">
+                    <div class="bg-white rounded-lg p-1 mr-3">
+                        <img src="assets/logo.png" alt="Logo France Trafic" class="h-6 w-6 object-contain">
+                    </div>
+                    Traficoo
+                </h3>
+                <p class="text-gray-400 mb-4">
+                    Toutes les informations trafic en France en un seul endroit.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <!-- Alternative moderne aux icônes Font Awesome -->
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Réseaux</h3>
+                <ul class="space-y-2">
+                    <li><a href="sncf.html" class="text-gray-400 hover:text-white transition">SNCF</a></li>
+                    <li><a href="ratp.html" class="text-gray-400 hover:text-white transition">RATP</a></li>
+                    <li><a href="ter.html" class="text-gray-400 hover:text-white transition">TER</a></li>
+                    <li><a href="lignes.html" class="text-gray-400 hover:text-white transition">Transports urbains</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">API</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+                    <li><a href="api/key/create/new.html" class="text-gray-400 hover:text-white transition">Clé API</a></li>
+                    <li><a href="link/statut.html" class="text-gray-400 hover:text-white transition">Statut</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Changelog</a></li>
+                </ul>
+            </div>
+
+                        <div>
+                <h3 class="text-lg font-bold mb-4">Devenir affilié</h3>
+                <ul class="space-y-2">
+                    <li><a href="partenaire.html" class="text-gray-400 hover:text-white transition">Comment devenir partenaire ?</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Se connecter à son compte</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Faire une demande</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Légal</h3>
+                <ul class="space-y-2">
+                    <li><a href="mentions-légales.html" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
+                    <li><a href="cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                    <li><a href="confidentialite.html" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
+                    <li><a href="licence.html" class="text-gray-400 hover:text-white transition">Licence</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+            <p>© 2025 Traficoo. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileNav').classList.toggle('hidden');
+        });
+        
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            document.querySelectorAll('.current-time').forEach(el => {
+                el.textContent = timeString;
+            });
+        }
+        
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 60000);
+        
+        // Load traffic alerts
+        async function loadTrafficAlerts() {
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const alerts = [
+                    {
+                        message: "Perturbations sur le RER B en raison d'un incident technique",
+                        severity: "warning",
+                        link: "#"
+                    },
+                    {
+                        message: "Grève nationale prévue demain sur plusieurs réseaux",
+                        severity: "alert",
+                        link: "#"
+                    }
+                ];
+                
+                const alertContainer = document.getElementById('traffic-alerts');
+                
+                if (alerts.length > 0) {
+                    alertContainer.innerHTML = `
+                        <div class="container mx-auto">
+                            <div class="flex items-center justify-between py-2 px-4">
+                                <div class="flex items-center scrolling-messages">
+                                    <div class="scrolling-messages-content flex items-center space-x-8">
+                                        ${alerts.map(alert => `
+                                            <span class="flex items-center flex-shrink-0">
+                                                <span class="relative flex h-3 w-3 mr-2">
+                                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full ${
+                                                        alert.severity === 'alert' ? 'bg-red-400' : 'bg-yellow-400'
+                                                    } opacity-75"></span>
+                                                    <span class="relative inline-flex rounded-full h-3 w-3 ${
+                                                        alert.severity === 'alert' ? 'bg-red-500' : 'bg-yellow-500'
+                                                    }"></span>
+                                                </span>
+                                                <a href="${alert.link}" class="text-sm font-medium text-white">
+                                                    ${alert.message}
+                                                </a>
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <button class="text-gray-300 hover:text-white ml-4">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add click handler for close button
+                    alertContainer.querySelector('button').addEventListener('click', function() {
+                        alertContainer.style.display = 'none';
+                    });
+                } else {
+                    alertContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading traffic alerts:', error);
+                document.getElementById('traffic-alerts').style.display = 'none';
+            }
+        }
+        
+        loadTrafficAlerts();
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

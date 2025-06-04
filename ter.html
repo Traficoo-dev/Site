@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Trafic TER | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --ter-green: #00843d;
+            --ter-dark-green: #006b32;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .ter-gradient {
+            background: linear-gradient(135deg, var(--ter-green) 0%, var(--ter-dark-green) 100%);
+        }
+        .region-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .train-status::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .status-normal::before { background-color: #10b981; }
+        .status-delayed::before { background-color: #f59e0b; }
+        .status-canceled::before { background-color: #ef4444; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="ter-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">TER</span></h1>
+            </a>
+            <div class="flex items-center space-x-3">
+                <button class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-map-marker-alt mr-1"></i> Ma région
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bannière info -->
+    <div class="bg-green-50 border-b border-green-200">
+        <div class="container mx-auto px-4 py-2 flex items-center">
+            <div class="mr-3">
+                <i class="fas fa-leaf text-green-500"></i>
+            </div>
+            <p class="text-sm text-green-800 truncate">
+                <strong>Éco-mobilité :</strong> 85% des TER roulent avec des énergies renouvelables
+            </p>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Sélecteur région -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center mb-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/5f/TER_Logo_2017.svg/1200px-TER_Logo_2017.svg.png" 
+                         alt="Logo TER" 
+                         class="h-10 mr-3">
+                    <h2 class="text-xl font-bold text-gray-800">Réseaux régionaux</h2>
+                </div>
+                
+                <div class="relative">
+                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white pr-10">
+                        <option>Sélectionnez votre région</option>
+                        <option>Auvergne-Rhône-Alpes</option>
+                        <option>Bourgogne-Franche-Comté</option>
+                        <option>Nouvelle-Aquitaine</option>
+                        <option>Occitanie</option>
+                        <option>Hauts-de-France</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Régions en vedette -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-star text-yellow-500 mr-2"></i>
+                Régions les plus consultées
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Carte région 1 -->
+                <a href="#" class="region-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="h-32 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lyon_5e_-_Colline_de_Fourvi%C3%A8re.jpg/800px-Lyon_5e_-_Colline_de_Fourvi%C3%A8re.jpg')"></div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800">Auvergne-Rhône-Alpes</h4>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Trafic normal</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Lyon • Grenoble • Clermont-Ferrand</p>
+                    </div>
+                </a>
+                
+                <!-- Carte région 2 -->
+                <a href="#" class="region-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="h-32 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Bordeaux_Place_de_la_Bourse_Miroir_d%27eau_2007.jpg/800px-Bordeaux_Place_de_la_Bourse_Miroir_d%27eau_2007.jpg')"></div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800">Nouvelle-Aquitaine</h4>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Retards localisés</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Bordeaux • Poitiers • Limoges</p>
+                    </div>
+                </a>
+                
+                <!-- Carte région 3 -->
+                <a href="#" class="region-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="h-32 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Montpellier_Place_de_la_Com%C3%A9die_panorama.jpg/800px-Montpellier_Place_de_la_Com%C3%A9die_panorama.jpg')"></div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-gray-800">Occitanie</h4>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Trafic normal</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Toulouse • Montpellier • Nîmes</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Prochains départs -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-train text-gray-500 mr-2"></i>
+                Prochains départs
+                <span class="ml-auto text-sm font-normal text-gray-500">Gare de Lyon Part-Dieu</span>
+            </h3>
+            
+            <!-- Train 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-3 border border-gray-200">
+                <div class="flex">
+                    <div class="w-3 bg-green-500"></div>
+                    <div class="p-4 flex-1">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <span class="inline-block bg-gray-100 text-gray-800 font-bold px-2 py-1 rounded text-sm mb-1">TER 87654</span>
+                                <h4 class="font-bold text-gray-800">Lyon Part-Dieu → Grenoble</h4>
+                            </div>
+                            <span class="train-status status-normal text-sm">À l'heure</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-sm">
+                            <div>
+                                <p class="text-gray-500">Départ</p>
+                                <p class="font-bold">14:30</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-gray-500">Durée</p>
+                                <p class="font-bold">1h15</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-500">Voie</p>
+                                <p class="font-bold">A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Train 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-3 border border-gray-200">
+                <div class="flex">
+                    <div class="w-3 bg-yellow-500"></div>
+                    <div class="p-4 flex-1">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <span class="inline-block bg-gray-100 text-gray-800 font-bold px-2 py-1 rounded text-sm mb-1">TER 34521</span>
+                                <h4 class="font-bold text-gray-800">Lyon Part-Dieu → Saint-Étienne</h4>
+                            </div>
+                            <span class="train-status status-delayed text-sm">Retard 10 min</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-sm">
+                            <div>
+                                <p class="text-gray-500">Départ</p>
+                                <p class="font-bold">15:05 <span class="text-yellow-600">(+10)</span></p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-gray-500">Durée</p>
+                                <p class="font-bold">45 min</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-500">Voie</p>
+                                <p class="font-bold">C</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 pt-3 border-t border-gray-100">
+                            <p class="text-sm text-yellow-700">
+                                <i class="fas fa-exclamation-triangle mr-1"></i>
+                                Incident signalé entre Lyon et Vénissieux
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition flex items-center justify-center">
+                <i class="fas fa-plus-circle mr-2"></i> Afficher plus de départs
+            </button>
+        </section>
+
+        <!-- Infos pratiques -->
+        <section>
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-info-circle text-gray-500 mr-2"></i>
+                Services TER
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-blue-600 mb-1">
+                        <i class="fas fa-ticket-alt text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Billets dématérialisés</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-green-600 mb-1">
+                        <i class="fas fa-bicycle text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Vélos acceptés</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-purple-600 mb-1">
+                        <i class="fas fa-wifi text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">WiFi gratuit</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-red-600 mb-1">
+                        <i class="fas fa-wheelchair text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Accessibilité</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Informations trafic TER en temps réel pour toutes les régions.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Régions</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Auvergne-Rhône-Alpes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Nouvelle-Aquitaine</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Occitanie</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact TER</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accessibilité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2023 Traficoo | Données TER Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script pour données dynamiques -->
+    <script>
+        // Exemple de requête API TER
+        async function fetchTERData(region) {
+            try {
+                console.log(`Récupération des données TER pour ${region}...`);
+                
+                // Simulation de données
+                return {
+                    lastUpdate: new Date(),
+                    trains: [
+                        {
+                            id: "TER87654",
+                            status: "on_time",
+                            departure: "Lyon Part-Dieu",
+                            arrival: "Grenoble",
+                            time: "14:30",
+                            delay: 0,
+                            platform: "A"
+                        }
+                    ]
+                };
+            } catch (error) {
+                console.error("Erreur API TER :", error);
+                return null;
+            }
+        }
+
+        // Au changement de région
+        document.querySelector('select').addEventListener('change', function() {
+            fetchTERData(this.value).then(data => {
+                if (data) {
+                    console.log("Données TER reçues :", data);
+                    // Mettre à jour l'interface ici
+                }
+            });
+        });
+    </script>
+</body>
+</html>

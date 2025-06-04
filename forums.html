@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forums Communautaires | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .header-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #003a6f 100%);
+        }
+        .forum-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .discussion-bubble {
+            position: relative;
+            background-color: #f8fafc;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+        }
+        .discussion-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #f8fafc transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:underline"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="api.html" class="hover:underline"><i class="fas fa-code mr-1"></i> API</a>
+                <a href="forums.html" class="font-bold underline"><i class="fas fa-comments mr-1"></i> Forums</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="a/login.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition">
+                    <i class="fas fa-user mr-2"></i> Connexion
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Hero Section -->
+        <section class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-comments text-blue-500 mr-3"></i>
+                Forums Communautaires
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Échangez avec la communauté Traficoo, posez vos questions et partagez vos projets !
+            </p>
+            <div class="mt-6">
+                <a href="#new-topic" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-full transition inline-flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Nouveau sujet
+                </a>
+            </div>
+        </section>
+
+        <!-- Catégories -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Carte 1 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i class="fas fa-code mr-3 text-blue-500"></i>
+                        Développement API
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Discussions techniques sur l'intégration de l'API Traficoo dans vos applications.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>124 sujets</span>
+                        <span>542 messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-green-50 border-b border-green-100">
+                    <h3 class="font-bold text-green-700 flex items-center">
+                        <i class="fas fa-train mr-3 text-green-500"></i>
+                        Données Transports
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Échanges sur les données de trafic, horaires et perturbations.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>89 sujets</span>
+                        <span>312 messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-purple-50 border-b border-purple-100">
+                    <h3 class="font-bold text-purple-700 flex items-center">
+                        <i class="fas fa-lightbulb mr-3 text-purple-500"></i>
+                        Idées & Suggestions
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Proposez vos idées pour améliorer Traficoo et votez pour les meilleures.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>67 sujets</span>
+                        <span>284 messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 4 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-yellow-50 border-b border-yellow-100">
+                    <h3 class="font-bold text-yellow-700 flex items-center">
+                        <i class="fas fa-question-circle mr-3 text-yellow-500"></i>
+                        Aide Débutants
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Espace dédié aux nouvelles utilisateurs pour poser des questions basiques.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>42 sujets</span>
+                        <span>176 messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 5 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-red-50 border-b border-red-100">
+                    <h3 class="font-bold text-red-700 flex items-center">
+                        <i class="fas fa-project-diagram mr-3 text-red-500"></i>
+                        Projets Communautaires
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Présentez vos projets utilisant Traficoo et collaborez avec d'autres.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>35 sujets</span>
+                        <span>128 messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 6 -->
+            <div class="forum-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                <div class="px-6 py-4 bg-indigo-50 border-b border-indigo-100">
+                    <h3 class="font-bold text-indigo-700 flex items-center">
+                        <i class="fas fa-gavel mr-3 text-indigo-500"></i>
+                        Modération
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">
+                        Questions sur les règles du forum et signalements de contenus.
+                    </p>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>18 sujets</span>
+                        <span>64 messages</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discussions récentes -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2 flex items-center">
+                <i class="fas fa-bolt text-yellow-500 mr-3"></i>
+                Discussions récentes
+            </h2>
+
+            <!-- Discussion 1 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-4 border border-gray-200">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/40?img=5" alt="Avatar" class="rounded-full mr-4">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-blue-600 mb-1">
+                            <a href="forums/discussion.html?s=Problème d'authentification avec la nouvelle version de l'API">Problème d'authentification avec la nouvelle version de l'API</a>
+                        </h3>
+                        <div class="flex flex-wrap items-center text-sm text-gray-500 mb-2">
+                            <span class="mr-3"><i class="fas fa-user mr-1"></i> JeanDupont</span>
+                            <span class="mr-3"><i class="fas fa-clock mr-1"></i> Il y a 2 heures</span>
+                            <span class="mr-3"><i class="fas fa-comment mr-1"></i> 8 réponses</span>
+                            <span><i class="fas fa-eye mr-1"></i> 124 vues</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">
+                            Après la mise à jour vers la v2.1, je n'arrive plus à m'authentifier avec ma clé. Quelqu'un a-t-il rencontré le même problème ?
+                        </p>
+                        <div class="flex items-center text-sm">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full mr-2">API</span>
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full">Urgent</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <div class="text-sm text-gray-500 mb-1">Dernière réponse</div>
+                        <div class="flex items-center justify-end">
+                            <img src="https://i.pravatar.cc/30?img=12" alt="Avatar" class="rounded-full mr-2">
+                            <span class="font-medium">MarieTech</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discussion 2 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-4 border border-gray-200">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/40?img=11" alt="Avatar" class="rounded-full mr-4">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-blue-600 mb-1">
+                            <a href="forums/discussion.html?s=[Idée] Ajouter les temps de correspondance entre gares">[Idée] Ajouter les temps de correspondance entre gares</a>
+                        </h3>
+                        <div class="flex flex-wrap items-center text-sm text-gray-500 mb-2">
+                            <span class="mr-3"><i class="fas fa-user mr-1"></i> TransportLover</span>
+                            <span class="mr-3"><i class="fas fa-clock mr-1"></i> Hier, 14:32</span>
+                            <span class="mr-3"><i class="fas fa-comment mr-1"></i> 15 réponses</span>
+                            <span><i class="fas fa-eye mr-1"></i> 87 vues</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">
+                            Je propose d'ajouter dans l'API les temps moyens pour passer d'un quai à l'autre dans les grandes gares. Qu'en pensez-vous ?
+                        </p>
+                        <div class="flex items-center text-sm">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full mr-2">Suggestion</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">Populaire</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <div class="text-sm text-gray-500 mb-1">Dernière réponse</div>
+                        <div class="flex items-center justify-end">
+                            <img src="https://i.pravatar.cc/30?img=3" alt="Avatar" class="rounded-full mr-2">
+                            <span class="font-medium">DevTraficoo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discussion 3 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-4 border border-gray-200">
+                <div class="flex items-start">
+                    <img src="https://i.pravatar.cc/40?img=8" alt="Avatar" class="rounded-full mr-4">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-blue-600 mb-1">
+                            <a href="forums/discussion.html?s=Mon application mobile avec Traficoo API">Mon application mobile avec Traficoo API</a>
+                        </h3>
+                        <div class="flex flex-wrap items-center text-sm text-gray-500 mb-2">
+                            <span class="mr-3"><i class="fas fa-user mr-1"></i> MobileDev42</span>
+                            <span class="mr-3"><i class="fas fa-clock mr-1"></i> 3 jours</span>
+                            <span class="mr-3"><i class="fas fa-comment mr-1"></i> 22 réponses</span>
+                            <span><i class="fas fa-eye mr-1"></i> 215 vues</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">
+                            Je partage mon appli "Transit Companion" qui utilise votre API pour afficher les perturbations en temps réel. Code source disponible sur GitHub!
+                        </p>
+                        <div class="flex items-center text-sm">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full mr-2">Projet</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Open Source</span>
+                        </div>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <div class="text-sm text-gray-500 mb-1">Dernière réponse</div>
+                        <div class="flex items-center justify-end">
+                            <img src="https://i.pravatar.cc/30?img=15" alt="Avatar" class="rounded-full mr-2">
+                            <span class="font-medium">CodeReviewer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-6">
+                <a href="forums/discussion.html" class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition">
+                    <i class="fas fa-list mr-2"></i> Voir toutes les discussions
+                </a>
+            </div>
+        </section>
+
+        <!-- Nouveau sujet (visible quand connecté) -->
+        <section id="new-topic" class="bg-white rounded-xl shadow-md p-6 mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2 flex items-center">
+                <i class="fas fa-edit text-green-500 mr-3"></i>
+                Créer un nouveau sujet
+            </h2>
+            <form>
+                <div class="mb-6">
+                    <label for="topic-title" class="block text-sm font-medium text-gray-700 mb-2">Titre du sujet</label>
+                    <input type="text" id="topic-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Problème avec l'endpoint /trains">
+                </div>
+
+                <div class="mb-6">
+                    <label for="topic-category" class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+                    <select id="topic-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Sélectionnez une catégorie</option>
+                        <option value="api">Développement API</option>
+                        <option value="data">Données Transports</option>
+                        <option value="ideas">Idées & Suggestions</option>
+                        <option value="help">Aide Débutants</option>
+                        <option value="projects">Projets Communautaires</option>
+                        <option value="moderation">Modération</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="topic-content" class="block text-sm font-medium text-gray-700 mb-2">Contenu</label>
+                    <textarea id="topic-content" rows="8" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Décrivez votre question ou partagez vos idées..."></textarea>
+                    <div class="flex items-center mt-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Le markdown est supporté pour la mise en forme
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags (max 3)</label>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center">
+                            API <button type="button" class="ml-1 text-blue-500 hover:text-blue-700">&times;</button>
+                        </span>
+                        <input type="text" class="px-3 py-1 border border-gray-300 rounded-full text-sm" placeholder="Ajouter un tag...">
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <input id="notify" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                        <label for="notify" class="ml-2 block text-sm text-gray-700">
+                            M'avertir des réponses
+                        </label>
+                    </div>
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Publier
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Règles du forum -->
+        <section class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+            <h2 class="text-xl font-bold text-blue-700 mb-4 flex items-center">
+                <i class="fas fa-gavel mr-3"></i>
+                Règles de la communauté
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-600">
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Soyez respectueux envers tous les membres</span>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Recherchez avant de créer un nouveau sujet</span>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Utilisez des titres clairs et descriptifs</span>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Partagez vos solutions si vous en trouvez</span>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Pas de spam ni d'autopromotion excessive</span>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-500"></i>
+                    <span>Les questions techniques vont dans la bonne catégorie</span>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-blue-700">
+                <i class="fas fa-info-circle mr-2"></i>
+                Notre modération est <strong>bienveillante</strong> et privilégie l'aide plutôt que la sanction.
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        La communauté des passionnés de transports et de technologie.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Forums</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Catégories</a></li>
+                        <li><a href="forums/discussion.html" class="text-gray-400 hover:text-white transition">Discussions récentes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Membres</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Règles</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tutoriels</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Outils communautaires</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contacter la modération</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Signaler un problème</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo - Forums communautaires. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simuler l'état de connexion
+        const isLoggedIn = false; // Changer à true pour voir le formulaire
+
+        if (!isLoggedIn) {
+            document.getElementById('new-topic').innerHTML = `
+                <div class="text-center py-8">
+                    <div class="bg-blue-50 inline-block p-4 rounded-full mb-4">
+                        <i class="fas fa-user-lock text-blue-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Connectez-vous pour participer</h3>
+                    <p class="text-gray-600 mb-4">Vous devez être connecté pour créer un nouveau sujet de discussion.</p>
+                    <a href="login.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition inline-flex items-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
+                    </a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

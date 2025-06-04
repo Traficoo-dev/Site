@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Affiliés Traficoo | Gestion du trafic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --traficoo-blue: #0369a1;
+            --traficoo-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .traficoo-gradient {
+            background: linear-gradient(135deg, var(--traficoo-blue) 0%, var(--traficoo-dark) 100%);
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--traficoo-blue);
+        }
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .data-table {
+            font-size: 0.9rem;
+        }
+        .data-table th {
+            font-weight: 600;
+            text-align: left;
+            background-color: #f8fafc;
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .badge-success {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .badge-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header avec navigation -->
+    <header class="traficoo-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="bg-white rounded-lg p-1 mr-3">
+                        <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                    </div>
+                    <h1 class="text-xl font-bold">Traficoo <span class="text-xs font-light">Espace Affiliés</span></h1>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1">
+                            <span class="hidden md:inline">John Doe</span>
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profil" class="h-8 w-8 rounded-full">
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user-circle mr-2"></i> Mon profil
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Paramètres
+                            </a>
+                            <div class="border-t border-gray-200"></div>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barre latérale et contenu principal -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md hidden md:block min-h-screen sticky top-16">
+            <nav class="p-4">
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">GÉNÉRAL</h3>
+                    <ul>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700">
+                                <i class="fas fa-tachometer-alt mr-3 text-blue-500"></i>
+                                Tableau de bord
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-chart-line mr-3 text-gray-400"></i>
+                                Statistiques
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">GESTION DU TRAFIC</h3>
+                    <ul>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-train mr-3 text-gray-400"></i>
+                                Lignes assignées
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-exclamation-triangle mr-3 text-gray-400"></i>
+                                Incidents
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
+                                Planning
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">MON COMPTE</h3>
+                    <ul>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-wallet mr-3 text-gray-400"></i>
+                                Commissions
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                                <i class="fas fa-file-invoice-dollar mr-3 text-gray-400"></i>
+                                Factures
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="flex-1 p-6">
+            <!-- En-tête -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
+                <div class="flex space-x-3">
+                    <button class="bg-white border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center">
+                        <i class="fas fa-download mr-2"></i> Exporter
+                    </button>
+                    <button class="bg-blue-600 rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Nouvel incident
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cartes de statistiques -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="dashboard-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Lignes gérées</p>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">12</p>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <i class="fas fa-train text-blue-600"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i> 2 nouvelles
+                        </span>
+                        <p class="text-xs text-gray-500 mt-2">Depuis le mois dernier</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Incidents actifs</p>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">3</p>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded-full">
+                            <i class="fas fa-exclamation-triangle text-orange-600"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i> 1 nouveau
+                        </span>
+                        <p class="text-xs text-gray-500 mt-2">A traiter rapidement</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Commission estimée</p>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">1,245€</p>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full">
+                            <i class="fas fa-euro-sign text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i> 15%
+                        </span>
+                        <p class="text-xs text-gray-500 mt-2">Par rapport au mois dernier</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau des lignes assignées -->
+            <div class="bg-white shadow-sm rounded-lg overflow-hidden mb-8">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="font-medium text-gray-800">Mes lignes assignées</h3>
+                    <button class="text-sm text-blue-600 hover:text-blue-800">Voir tout</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 data-table">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3">Ligne</th>
+                                <th class="px-6 py-3">Type</th>
+                                <th class="px-6 py-3">Gares</th>
+                                <th class="px-6 py-3">Statut</th>
+                                <th class="px-6 py-3">Dernière mise à jour</th>
+                                <th class="px-6 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">TER 876543</div>
+                                    <div class="text-sm text-gray-500">Paris Nord ↔ Amiens</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-success">TER</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">8 gares</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-success">À l'heure</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    12/06/2023 14:30
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="text-gray-600 hover:text-gray-900"><i class="fas fa-cog"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">RER B</div>
+                                    <div class="text-sm text-gray-500">Aéroport CDG ↔ Saint-Rémy-lès-Chevreuse</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-warning">RER</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">47 gares</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-warning">Perturbations</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    12/06/2023 14:15
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="text-gray-600 hover:text-gray-900"><i class="fas fa-cog"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">TGV 8765</div>
+                                    <div class="text-sm text-gray-500">Paris Lyon ↔ Marseille St Charles</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-success">TGV</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">5 gares</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge badge-success">À l'heure</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    12/06/2023 13:45
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="text-gray-600 hover:text-gray-900"><i class="fas fa-cog"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Incidents récents -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="font-medium text-gray-800">Incidents récents</h3>
+                        <button class="text-sm text-blue-600 hover:text-blue-800">Voir tout</button>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-red-100 p-2 rounded-full">
+                                    <i class="fas fa-exclamation-circle text-red-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-gray-800">Retard important</h4>
+                                    <p class="text-sm text-gray-600 mt-1">RER B - Retard de 45min entre Gare du Nord et Aulnay-sous-Bois</p>
+                                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        <i class="far fa-clock mr-1"></i>
+                                        <span>Signalé à 14:15</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-yellow-100 p-2 rounded-full">
+                                    <i class="fas fa-traffic-light text-yellow-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-gray-800">Trafic perturbé</h4>
+                                    <p class="text-sm text-gray-600 mt-1">TER 876543 - Circulation alternée entre Creil et Compiègne</p>
+                                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        <i class="far fa-clock mr-1"></i>
+                                        <span>Signalé à 11:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activité récente -->
+                <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="font-medium text-gray-800">Activité récente</h3>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-blue-100 p-2 rounded-full">
+                                    <i class="fas fa-train text-blue-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-800">Vous avez mis à jour les horaires de la ligne <span class="font-medium">TER 876543</span></p>
+                                    <div class="mt-1 flex items-center text-xs text-gray-500">
+                                        <i class="far fa-clock mr-1"></i>
+                                        <span>Aujourd'hui à 13:45</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-green-100 p-2 rounded-full">
+                                    <i class="fas fa-check-circle text-green-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-800">Vous avez résolu un incident sur la ligne <span class="font-medium">RER B</span></p>
+                                    <div class="mt-1 flex items-center text-xs text-gray-500">
+                                        <i class="far fa-clock mr-1"></i>
+                                        <span>Hier à 18:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Script pour gérer les interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ici vous pourriez ajouter du code pour:
+            // - Charger des données en AJAX
+            // - Gérer les interactions utilisateur
+            // - Initialiser des composants UI
+        });
+    </script>
+</body>
+</html>

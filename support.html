@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Traficoo | Assistance pour les problèmes de transport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --traficoo-blue: #0369a1;
+            --traficoo-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .traficoo-gradient {
+            background: linear-gradient(135deg, var(--traficoo-blue) 0%, var(--traficoo-dark) 100%);
+        }
+        .support-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--traficoo-blue);
+        }
+        .support-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .urgent {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { border-left-color: #ef4444; }
+            50% { border-left-color: #fca5a5; }
+            100% { border-left-color: #ef4444; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="traficoo-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Support</span></h1>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-blue-200">Accueil</a>
+                <a href="#contact" class="hover:text-blue-200">Contact</a>
+                <a href="https://traficoo.betteruptime.com/" class="hover:text-blue-200">État des services</a>
+                <a href="#faq" class="hover:text-blue-200">FAQ</a>
+            </nav>
+            <button class="md:hidden text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="traficoo-gradient text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    <i class="fas fa-headset mr-3"></i>
+                    Support Traficoo
+                </h2>
+                <p class="text-xl mb-8">
+                    Toutes les informations sur le trafic SNCF, RATP, TER et transports urbains en un seul endroit.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#contact" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-6 rounded-full transition">
+                        <i class="fas fa-envelope mr-2"></i> Nous contacter
+                    </a>
+                    <a href="https://traficoo.betteruptime.com/" class="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-6 rounded-full transition">
+                        <i class="fas fa-server mr-2"></i> État des services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Définition Traficoo -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Qu'est-ce que Traficoo ?</h2>
+                <div class="max-w-3xl mx-auto text-gray-600">
+                    <p class="mb-4">
+                        Traficoo est la plateforme unifiée qui regroupe toutes les informations de trafic en temps réel pour les réseaux :
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <i class="fas fa-train text-3xl text-blue-600 mb-2"></i>
+                            <h3 class="font-medium">SNCF</h3>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <i class="fas fa-subway text-3xl text-green-600 mb-2"></i>
+                            <h3 class="font-medium">RATP</h3>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <i class="fas fa-train-tram text-3xl text-purple-600 mb-2"></i>
+                            <h3 class="font-medium">TER</h3>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <i class="fas fa-bus text-3xl text-orange-600 mb-2"></i>
+                            <h3 class="font-medium">Transports urbains</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catégories de support -->
+    <section id="categories" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Comment pouvons-nous vous aider ?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Erreur lignes -->
+                <div class="support-card bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-blue-600 text-3xl mb-4">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Erreur sur une ligne</h3>
+                    <p class="text-gray-600 mb-4">
+                        Signalez un problème concernant une ligne spécifique (horaires incorrects, statut erroné, etc.)
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Signaler un problème <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Signalement partenaire -->
+                <div class="support-card bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-green-600 text-3xl mb-4">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Signalement partenaire</h3>
+                    <p class="text-gray-600 mb-4">
+                        Problème avec un partenaire Traficoo ou demande d'affiliation
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Contacter le service partenaires <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Erreur train -->
+                <div class="support-card urgent bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-red-600 text-3xl mb-4">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Erreur sur un train</h3>
+                    <p class="text-gray-600 mb-4">
+                        Signalez un problème spécifique à un train (retard non signalé, annulation, etc.)
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Signaler un train <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Erreur site -->
+                <div class="support-card bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-purple-600 text-3xl mb-4">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Erreur sur le site</h3>
+                    <p class="text-gray-600 mb-4">
+                        Problème technique sur le site web Traficoo (affichage, connexion, etc.)
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Signaler un bug <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Erreur API -->
+                <div class="support-card bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-orange-600 text-3xl mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Erreur API</h3>
+                    <p class="text-gray-600 mb-4">
+                        Problème avec l'API Traficoo (données incorrectes, erreur d'authentification, etc.)
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Signaler une erreur API <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Support général -->
+                <div class="support-card bg-white rounded-lg p-6 shadow-sm">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Support général</h3>
+                    <p class="text-gray-600 mb-4">
+                        Question générale, demande d'assistance ou autre problème non listé
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium inline-flex items-center">
+                        Contacter le support <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulaire de contact -->
+    <section id="contact" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Contactez notre support</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm p-6 md:p-8">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
+                        <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionnez une option</option>
+                            <option value="line_error">Erreur sur une ligne</option>
+                            <option value="train_error">Erreur sur un train</option>
+                            <option value="partner">Signalement partenaire</option>
+                            <option value="website">Erreur sur le site</option>
+                            <option value="api">Erreur API</option>
+                            <option value="general">Support général</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="network" class="block text-sm font-medium text-gray-700 mb-1">Réseau concerné (si applicable)</label>
+                        <select id="network" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionnez un réseau</option>
+                            <option value="sncf">SNCF</option>
+                            <option value="ratp">RATP</option>
+                            <option value="ter">TER</option>
+                            <option value="urban">Transports urbains</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                        <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="attachment" class="block text-sm font-medium text-gray-700 mb-1">Pièce jointe (capture d'écran, etc.)</label>
+                        <input type="file" id="attachment" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <input id="urgent" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="urgent" class="ml-2 block text-sm text-gray-700">Ce problème est urgent</label>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Envoyer la demande
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-12 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Foire aux questions</h2>
+            
+            <div class="space-y-4">
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium text-gray-800 hover:bg-gray-50 focus:outline-none flex justify-between items-center">
+                        <span>Comment signaler une erreur sur les horaires d'un train ?</span>
+                        <i class="fas fa-chevron-down text-blue-500"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600">
+                        <p>Pour signaler une erreur sur les horaires d'un train :</p>
+                        <ol class="list-decimal pl-5 mt-2 space-y-1">
+                            <li>Rendez-vous dans notre formulaire de contact</li>
+                            <li>Sélectionnez "Erreur sur un train" comme sujet</li>
+                            <li>Précisez le numéro du train et l'horaire concerné</li>
+                            <li>Ajoutez une capture d'écran si possible</li>
+                        </ol>
+                        <p class="mt-2">Notre équipe traitera votre demande sous 24h.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium text-gray-800 hover:bg-gray-50 focus:outline-none flex justify-between items-center">
+                        <span>Que faire si l'API ne renvoie pas les bonnes informations ?</span>
+                        <i class="fas fa-chevron-down text-blue-500"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600">
+                        <p>Si vous constatez un problème avec l'API :</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Vérifiez d'abord l'<a href="https://traficoo.betteruptime.com/" class="text-blue-600">état des services</a></li>
+                            <li>Consultez la documentation de l'API pour vous assurer que votre requête est correcte</li>
+                            <li>Si le problème persiste, contactez-nous en sélectionnant "Erreur API" comme sujet</li>
+                            <li>Fournissez le maximum d'informations : endpoint concerné, paramètres utilisés, réponse reçue</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium text-gray-800 hover:bg-gray-50 focus:outline-none flex justify-between items-center">
+                        <span>Comment devenir partenaire de Traficoo ?</span>
+                        <i class="fas fa-chevron-down text-blue-500"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600">
+                        <p>Traficoo travaille avec différents types de partenaires :</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Opérateurs de transport pour fournir des données</li>
+                            <li>Développeurs pour intégrer notre API</li>
+                            <li>Affiliés pour promouvoir nos services</li>
+                        </ul>
+                        <p class="mt-2">Pour toute demande de partenariat, contactez-nous en sélectionnant "Signalement partenaire" comme sujet.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium text-gray-800 hover:bg-gray-50 focus:outline-none flex justify-between items-center">
+                        <span>Quel est le temps de réponse du support ?</span>
+                        <i class="fas fa-chevron-down text-blue-500"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600">
+                        <p>Nos délais de réponse moyens :</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Problèmes urgents (marqués comme tels) : sous 2 heures</li>
+                            <li>Erreurs sur les trains/lignes : 24 heures maximum</li>
+                            <li>Demandes générales : 48 heures maximum</li>
+                            <li>Demandes de partenariat : 72 heures maximum</li>
+                        </ul>
+                        <p class="mt-2">Ces délais peuvent varier en fonction du volume de demandes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo Support
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Assistance pour toutes les informations de trafic SNCF, RATP, TER et transports urbains.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Nous contacter</a></li>
+                        <li><a href="https://traficoo.betteruptime.com/" class="text-gray-400 hover:text-white transition">État des services</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Centre d'aide</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog technique</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="partenaire.html" class="text-gray-400 hover:text-white transition">Partenariats</a></li>
+                        <li><a href="careers.html" class="text-gray-400 hover:text-white transition">Carrières</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion des FAQ
+        document.querySelectorAll('#faq button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.display === 'none' || !content.style.display) {
+                    content.style.display = 'block';
+                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                }
+            });
+        });
+
+        // Mobile menu toggle (à implémenter)
+        document.querySelector('header button').addEventListener('click', () => {
+            // À compléter avec la logique d'ouverture/fermeture du menu mobile
+        });
+    </script>
+</body>
+</html>

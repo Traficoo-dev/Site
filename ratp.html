@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Trafic RATP | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --ratp-blue: #003a6f;
+            --ratp-green: #6eaa49;
+            --metro-1: #ffcd00;
+            --metro-4: #b72025;
+            --metro-14: #662483;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .ratp-gradient {
+            background: linear-gradient(135deg, var(--ratp-blue) 0%, var(--ratp-green) 100%);
+        }
+        .metro-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .rer-badge {
+            background-color: white;
+            border: 2px solid;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .tram-badge {
+            background-color: #00a74f;
+            color: white;
+            border-radius: 4px;
+            padding: 0 6px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="ratp-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">RATP</span></h1>
+            </a>
+            <div class="flex items-center space-x-3">
+                <button class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-subway mr-1"></i> Lignes
+                </button>
+                <button class="bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-map-marker-alt mr-1"></i> Stations
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bannière d'alerte -->
+    <div class="bg-orange-50 border-b border-orange-200">
+        <div class="container mx-auto px-4 py-2 flex items-center">
+            <div class="animate-pulse flex items-center mr-3">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                </span>
+            </div>
+            <p class="text-sm text-orange-800 truncate">
+                <strong>Perturbations</strong> sur les lignes 4, 13 et RER A
+            </p>
+            <button class="ml-auto text-orange-600 hover:text-orange-800">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Section recherche -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center mb-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/8e/RATP_logo_2010.svg/1200px-RATP_logo_2010.svg.png" 
+                         alt="Logo RATP" 
+                         class="h-10 mr-3">
+                    <h2 class="text-xl font-bold text-gray-800">État du trafic en temps réel</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="relative">
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white pr-10">
+                            <option>Toutes les lignes</option>
+                            <option>Métro</option>
+                            <option>RER</option>
+                            <option>Tramway</option>
+                            <option>Bus</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="fas fa-subway text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white pr-10">
+                            <option>Toutes les stations</option>
+                            <option>Châtelet</option>
+                            <option>Gare du Nord</option>
+                            <option>Montparnasse</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition flex items-center justify-center">
+                        <i class="fas fa-search mr-2"></i> Rechercher
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <span class="metro-badge" style="background-color: var(--metro-1)">1</span>
+                    <span class="metro-badge" style="background-color: var(--metro-4)">4</span>
+                    <span class="metro-badge" style="background-color: var(--metro-14)">14</span>
+                    <span class="rer-badge" style="color: #e2231a; border-color: #e2231a">A</span>
+                    <span class="tram-badge">T3</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- État des lignes -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-signal text-gray-500 mr-2"></i>
+                État des lignes
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Ligne 1 -->
+                <div class="bg-white rounded-xl shadow-md p-4 border-l-4" style="border-color: var(--metro-1)">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <span class="metro-badge" style="background-color: var(--metro-1)">1</span>
+                            <h4 class="font-bold text-gray-800">Ligne 1</h4>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Circulation normale</span>
+                    </div>
+                    <p class="text-sm text-gray-600 ml-8">La Défense ↔ Château de Vincennes</p>
+                </div>
+                
+                <!-- Ligne 4 -->
+                <div class="bg-white rounded-xl shadow-md p-4 border-l-4" style="border-color: var(--metro-4)">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <span class="metro-badge" style="background-color: var(--metro-4)">4</span>
+                            <h4 class="font-bold text-gray-800">Ligne 4</h4>
+                        </div>
+                        <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Trafic perturbé</span>
+                    </div>
+                    <div class="text-sm text-gray-600 ml-8 space-y-1">
+                        <p>Porte de Clignancourt ↔ Bagneux</p>
+                        <p class="text-orange-600"><i class="fas fa-exclamation-triangle mr-1"></i> Interruption entre Montparnasse et Porte d'Orléans</p>
+                    </div>
+                </div>
+                
+                <!-- Ligne 14 -->
+                <div class="bg-white rounded-xl shadow-md p-4 border-l-4" style="border-color: var(--metro-14)">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <span class="metro-badge" style="background-color: var(--metro-14)">14</span>
+                            <h4 class="font-bold text-gray-800">Ligne 14</h4>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Circulation normale</span>
+                    </div>
+                    <p class="text-sm text-gray-600 ml-8">Saint-Lazare ↔ Olympiades</p>
+                </div>
+                
+                <!-- RER A -->
+                <div class="bg-white rounded-xl shadow-md p-4 border-l-4" style="border-color: #e2231a">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <span class="rer-badge" style="color: #e2231a; border-color: #e2231a">A</span>
+                            <h4 class="font-bold text-gray-800">RER A</h4>
+                        </div>
+                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Fort trafic</span>
+                    </div>
+                    <div class="text-sm text-gray-600 ml-8 space-y-1">
+                        <p>Saint-Germain-en-Laye ↔ Boissy-Saint-Léger</p>
+                        <p class="text-red-600"><i class="fas fa-users mr-1"></i> Forte affluence aux heures de pointe</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition flex items-center justify-center">
+                <i class="fas fa-list-ul mr-2"></i> Voir toutes les lignes
+            </button>
+        </section>
+
+        <!-- Perturbations -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-exclamation-triangle text-gray-500 mr-2"></i>
+                Perturbations en cours
+            </h3>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Item perturbation -->
+                <div class="border-b border-gray-200 last:border-0">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <span class="metro-badge mt-1" style="background-color: var(--metro-4)">4</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-gray-800 mb-1">Interruption de trafic</h4>
+                                <p class="text-sm text-gray-600">Entre Montparnasse et Porte d'Orléans</p>
+                                <p class="text-sm text-orange-600 mt-1"><i class="fas fa-clock mr-1"></i> Jusqu'à 18h00</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-0 hidden">
+                        <p class="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+            Suite à un incident technique, la circulation est interrompue sur cette section. 
+            Un service de bus de remplacement est mis en place.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Item perturbation -->
+                <div class="border-b border-gray-200 last:border-0">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <span class="metro-badge mt-1" style="background-color: #ff7f32">13</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-gray-800 mb-1">Retards</h4>
+                                <p class="text-sm text-gray-600">Sur l'ensemble de la ligne</p>
+                                <p class="text-sm text-orange-600 mt-1"><i class="fas fa-clock mr-1"></i> Retards de 5 à 10 min</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infos pratiques -->
+        <section>
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-info-circle text-gray-500 mr-2"></i>
+                Informations pratiques
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="bg-white rounded-xl shadow-md p-4 border border-gray-200 hover:border-blue-300 transition flex items-center">
+                    <div class="bg-blue-100 text-blue-600 p-3 rounded-lg mr-4">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Horaires</h4>
+                        <p class="text-sm text-gray-600">Premiers et derniers métros</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="bg-white rounded-xl shadow-md p-4 border border-gray-200 hover:border-blue-300 transition flex items-center">
+                    <div class="bg-green-100 text-green-600 p-3 rounded-lg mr-4">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Tarifs</h4>
+                        <p class="text-sm text-gray-600">Tickets, navigo, tarifs réduits</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Informations trafic en temps réel pour la RATP et autres réseaux.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Réseaux</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Métro</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">RER</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tramway</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Bus</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact RATP</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accessibilité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2023 Traficoo | Données RATP Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script pour données dynamiques -->
+    <script>
+        // Fonction pour afficher/masquer les détails des perturbations
+        document.querySelectorAll('.border-b').forEach(item => {
+            const btn = item.querySelector('button');
+            const content = item.querySelector('.hidden');
+            
+            if (btn && content) {
+                btn.addEventListener('click', () => {
+                    content.classList.toggle('hidden');
+                    btn.innerHTML = content.classList.contains('hidden') 
+                        ? '<i class="fas fa-chevron-down"></i>' 
+                        : '<i class="fas fa-chevron-up"></i>';
+                });
+            }
+        });
+
+        // Exemple de requête API RATP (à adapter)
+        async function fetchRATPData() {
+            try {
+                console.log("Récupération des données RATP...");
+                
+                // Simulation de données
+                return {
+                    lastUpdate: new Date(),
+                    lines: [
+                        { id: "1", status: "normal", name: "Ligne 1" },
+                        { id: "4", status: "disrupted", name: "Ligne 4" }
+                    ]
+                };
+            } catch (error) {
+                console.error("Erreur API RATP :", error);
+                return null;
+            }
+        }
+
+        // Chargement initial
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchRATPData().then(data => {
+                if (data) {
+                    console.log("Données RATP reçues :", data);
+                    // Ici vous mettriez à jour le DOM avec les vraies données
+                }
+            });
+        });
+    </script>
+</body>
+</html>

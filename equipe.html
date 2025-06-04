@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Équipe Traficoo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+    :root {
+      --api-blue: #0369a1;
+      --api-dark: #1e293b;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .api-gradient {
+      background: linear-gradient(135deg, var(--api-blue), var(--api-dark));
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center">
+        <div class="bg-white rounded-lg p-1 mr-3">
+          <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+        </div>
+        <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Équipe</span></h1>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container mx-auto px-4 py-12 max-w-6xl">
+    <section class="mb-16 text-center">
+      <div class="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-lg inline-block">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <i class="fas fa-users text-blue-500 mr-3"></i>
+          Notre Équipe
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Une équipe passionnée par les données ouvertes, la mobilité et les solutions numériques.
+        </p>
+      </div>
+    </section>
+
+    <!-- Team Members -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Membre 1 -->
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md text-center transition">
+        <img src="forums/profil/pp/maxlware.png" alt="Jean Dupont" class="w-24 h-24 rounded-full mx-auto mb-4">
+        <h3 class="text-xl font-bold text-gray-800">Maxlware</h3>
+        <p class="text-blue-500 font-medium">Fondateur & Développeur Frontend</p>
+        <p class="text-gray-600 mt-2">Fondateur de Traficoo et développeur frontend de toute les pages.</p>
+      </div>
+
+      <!-- Membre 2 -->
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md text-center transition">
+        <img src="forums/profil/pp/traficoo.png" alt="Claire Martin" class="w-24 h-24 rounded-full mx-auto mb-4">
+        <h3 class="text-xl font-bold text-gray-800">Bientôt</h3>
+        <p class="text-green-600 font-medium">Développeur Backend</p>
+        <p class="text-gray-600 mt-2">Developpeur principal de l'API.</p>
+      </div>
+
+      <!-- Membre 3 -->
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md text-center transition">
+        <img src="forums/profil/pp/eletrixtime.png" alt="Luc Nguyen" class="w-24 h-24 rounded-full mx-auto mb-4">
+        <h3 class="text-xl font-bold text-gray-800">EletrixTime</h3>
+        <p class="text-purple-600 font-medium">Responsable Infrastructure</p>
+        <p class="text-gray-600 mt-2">Sécurité, hébergement et déploiement de l’API sur nos serveurs cloud.</p>
+      </div>
+    </section>
+  </main>
+  <br>
+  <br>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white pt-12 pb-8 mt-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center text-sm text-gray-500">
+        <p>© 2025 Traficoo | Une équipe au service de la mobilité intelligente</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

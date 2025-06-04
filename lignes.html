@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transports Urbains | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --transdev-red: #e2001a;
+            --keolis-blue: #0066b1;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .urban-gradient {
+            background: linear-gradient(135deg, var(--transdev-red) 0%, var(--keolis-blue) 100%);
+        }
+        .network-card:hover .network-logo {
+            transform: scale(1.1);
+        }
+        .transport-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+        .metro { background-color: #ff6319; color: white; }
+        .tram { background-color: #00a74f; color: white; }
+        .bus { background-color: #0078bf; color: white; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="urban-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Urbain</span></h1>
+            </a>
+            <button class="bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm">
+                <i class="fas fa-city mr-1"></i> Ma ville
+            </button>
+        </div>
+    </header>
+
+    <!-- Bannière info -->
+    <div class="bg-blue-50 border-b border-blue-200">
+        <div class="container mx-auto px-4 py-2 flex items-center">
+            <div class="mr-3">
+                <i class="fas fa-info-circle text-blue-500"></i>
+            </div>
+            <p class="text-sm text-blue-800">
+                <strong>Info :</strong> Grèves locales possibles ce jeudi 14 septembre
+            </p>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Sélecteur ville -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                    Sélectionnez votre réseau
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <select id="city-selector" class="w-full px-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white pr-10">
+                            <option value="">Choisissez une ville</option>
+                            <option value="lille">Lille (Ilévia)</option>
+                            <option value="lyon">Lyon (TCL)</option>
+                            <option value="toulouse">Toulouse (Tisséo)</option>
+                            <option value="marseille">Marseille (RTM)</option>
+                            <option value="nantes">Nantes (TAN)</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <select id="line-selector" class="w-full px-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white pr-10" disabled>
+                            <option value="">Choisissez d'abord une ville</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <i class="fas fa-subway text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Réseaux populaires -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-fire text-orange-500 mr-2"></i>
+                Réseaux les plus consultés
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Carte Ilévia -->
+                <a href="#" class="network-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="p-4 flex items-center">
+                        <div class="network-logo bg-[#e2001a] text-white p-3 rounded-lg mr-4 transition duration-300">
+                            <i class="fas fa-subway text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Ilévia</h4>
+                            <p class="text-sm text-gray-600">Lille Métropole</p>
+                            <div class="mt-1 flex flex-wrap gap-1">
+                                <span class="transport-icon metro"><i class="fas fa-subway text-xs"></i></span>
+                                <span class="transport-icon tram"><i class="fas fa-tram text-xs"></i></span>
+                                <span class="transport-icon bus"><i class="fas fa-bus text-xs"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Trafic normal</span>
+                    </div>
+                </a>
+                
+                <!-- Carte TCL -->
+                <a href="#" class="network-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="p-4 flex items-center">
+                        <div class="network-logo bg-[#006f4e] text-white p-3 rounded-lg mr-4 transition duration-300">
+                            <i class="fas fa-tram text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">TCL</h4>
+                            <p class="text-sm text-gray-600">Lyon</p>
+                            <div class="mt-1 flex flex-wrap gap-1">
+                                <span class="transport-icon metro"><i class="fas fa-subway text-xs"></i></span>
+                                <span class="transport-icon tram"><i class="fas fa-tram text-xs"></i></span>
+                                <span class="transport-icon bus"><i class="fas fa-bus text-xs"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Perturbations ligne B</span>
+                    </div>
+                </a>
+                
+                <!-- Carte Tisséo -->
+                <a href="#" class="network-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="p-4 flex items-center">
+                        <div class="network-logo bg-[#00a3e0] text-white p-3 rounded-lg mr-4 transition duration-300">
+                            <i class="fas fa-bus text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Tisséo</h4>
+                            <p class="text-sm text-gray-600">Toulouse</p>
+                            <div class="mt-1 flex flex-wrap gap-1">
+                                <span class="transport-icon metro"><i class="fas fa-subway text-xs"></i></span>
+                                <span class="transport-icon tram"><i class="fas fa-tram text-xs"></i></span>
+                                <span class="transport-icon bus"><i class="fas fa-bus text-xs"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Trafic normal</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Perturbations -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                Perturbations en cours
+            </h3>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Item perturbation -->
+                <div class="border-b border-gray-200 p-4">
+                    <div class="flex items-start">
+                        <div class="mr-3 mt-1">
+                            <span class="transport-icon metro"><i class="fas fa-subway text-xs"></i></span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-gray-800">Ligne B - TCL Lyon</h4>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Interrompue</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Entre Gare Part-Dieu et Stade de Gerland</p>
+                            <p class="text-sm text-red-600 mt-2"><i class="fas fa-clock mr-1"></i> Jusqu'à 18h00 - Bus de remplacement</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item perturbation -->
+                <div class="border-b border-gray-200 p-4">
+                    <div class="flex items-start">
+                        <div class="mr-3 mt-1">
+                            <span class="transport-icon tram"><i class="fas fa-tram text-xs"></i></span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-gray-800">Ligne R - Ilévia Lille</h4>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Retards</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Entre Lille Flandres et Tourcoing</p>
+                            <p class="text-sm text-yellow-600 mt-2"><i class="fas fa-clock mr-1"></i> Retards de 5 à 10 minutes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section>
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-concierge-bell text-purple-500 mr-2"></i>
+                Services urbains
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-blue-600 mb-1">
+                        <i class="fas fa-mobile-alt text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Appli mobile</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-green-600 mb-1">
+                        <i class="fas fa-bicycle text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Vélos</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-red-600 mb-1">
+                        <i class="fas fa-parking text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Parkings</p>
+                </a>
+                <a href="#" class="bg-white rounded-lg shadow-sm p-3 text-center hover:bg-gray-50 transition">
+                    <div class="text-purple-600 mb-1">
+                        <i class="fas fa-user-shield text-xl"></i>
+                    </div>
+                    <p class="text-xs font-medium">Sécurité</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Toutes les informations sur les transports urbains en France.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Réseaux</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Ilévia (Lille)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">TCL (Lyon)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tisséo (Toulouse)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contacts réseaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accessibilité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2023 Traficoo | Données des réseaux partenaires</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script pour données dynamiques -->
+    <script>
+        // Gestion du sélecteur de ville/ligne
+        const citySelector = document.getElementById('city-selector');
+        const lineSelector = document.getElementById('line-selector');
+        
+        // Données simulées des lignes par ville
+        const networkData = {
+            'lille': {
+                name: 'Ilévia',
+                lines: [
+                    { id: 'metro-1', name: 'Métro 1', type: 'metro' },
+                    { id: 'metro-2', name: 'Métro 2', type: 'metro' },
+                    { id: 'tram-r', name: 'Tramway R', type: 'tram' },
+                    { id: 'bus-12', name: 'Bus L12', type: 'bus' }
+                ]
+            },
+            'lyon': {
+                name: 'TCL',
+                lines: [
+                    { id: 'metro-a', name: 'Métro A', type: 'metro' },
+                    { id: 'metro-b', name: 'Métro B', type: 'metro' },
+                    { id: 'tram-t1', name: 'Tramway T1', type: 'tram' },
+                    { id: 'bus-c3', name: 'Bus C3', type: 'bus' }
+                ]
+            }
+        };
+
+        citySelector.addEventListener('change', function() {
+            const selectedCity = this.value;
+            
+            if (selectedCity) {
+                lineSelector.disabled = false;
+                lineSelector.innerHTML = '<option value="">Sélectionnez une ligne</option>';
+                
+                // Ajout des lignes correspondantes
+                networkData[selectedCity].lines.forEach(line => {
+                    const option = document.createElement('option');
+                    option.value = line.id;
+                    option.textContent = line.name;
+                    lineSelector.appendChild(option);
+                });
+            } else {
+                lineSelector.disabled = true;
+                lineSelector.innerHTML = '<option value="">Choisissez d\'abord une ville</option>';
+            }
+        });
+
+        // Exemple de requête API
+        async function fetchUrbanData(network, line) {
+            try {
+                console.log(`Récupération des données pour ${network} - ligne ${line}...`);
+                // Ici vous feriez un appel à l'API du réseau concerné
+                return { /* données */ };
+            } catch (error) {
+                console.error(`Erreur API ${network}:`, error);
+                return null;
+            }
+        }
+    </script>
+</body>
+</html>

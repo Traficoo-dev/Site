@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrières | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .header-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #0066cc 100%);
+        }
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .department-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .tech-badge {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:underline">Accueil</a>
+                <a href="../api.html" class="hover:underline">API</a>
+                <a href="../forums.html" class="hover:underline">Forums</a>
+                <a href="#" class="font-bold underline">Carrières</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Rejoignez l'équipe Traficoo</h1>
+            <p class="text-xl max-w-3xl mx-auto mb-8">
+                Contribuez à révolutionner les données de transport avec nous. Trouvez le poste qui correspond à vos compétences.
+            </p>
+            <a href="#open-positions" class="bg-white hover:bg-gray-100 text-blue-800 font-bold py-3 px-8 rounded-full transition inline-flex items-center">
+                <i class="fas fa-briefcase mr-2"></i> Voir les offres
+            </a>
+        </div>
+    </section>
+
+    <!-- Valeurs -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Nos valeurs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center px-6">
+                    <div class="bg-blue-100 inline-flex p-4 rounded-full mb-4">
+                        <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Innovation</h3>
+                    <p class="text-gray-600">
+                        Nous repoussons les limites technologiques pour offrir les meilleures solutions de données transports.
+                    </p>
+                </div>
+                <div class="text-center px-6">
+                    <div class="bg-green-100 inline-flex p-4 rounded-full mb-4">
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Collaboration</h3>
+                    <p class="text-gray-600">
+                        Une équipe soudée où chaque voix compte pour construire des produits exceptionnels.
+                    </p>
+                </div>
+                <div class="text-center px-6">
+                    <div class="bg-purple-100 inline-flex p-4 rounded-full mb-4">
+                        <i class="fas fa-chart-line text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Impact</h3>
+                    <p class="text-gray-600">
+                        Votre travail améliorera directement l'expérience de millions d'utilisateurs quotidiens.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offres d'emploi -->
+    <section id="open-positions" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Postes disponibles</h2>
+            
+            <!-- Filtres -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex-1">
+                        <label for="search" class="sr-only">Recherche</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input type="text" id="search" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Développeur, Designer...">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="department" class="sr-only">Département</label>
+                        <select id="department" class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Tous les départements</option>
+                            <option value="tech">Technologie</option>
+                            <option value="data">Data</option>
+                            <option value="product">Produit</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des postes -->
+            <div class="space-y-6">
+                <!-- Offre 1 -->
+                <div class="job-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-1">Développeur Fullstack API</h3>
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <span class="department-badge bg-blue-100 text-blue-800">
+                                        <i class="fas fa-code mr-1"></i> Technologie
+                                    </span>
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-clock mr-1"></i> Bénévole
+                                    </span>
+                                </div>
+                                <p class="text-gray-600 mb-4">
+                                    Nous cherchons un développeur passionné par les APIs pour concevoir et maintenir notre plateforme. Vous travaillerez sur des défis techniques complexes avec une équipe expérimentée.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="tech-badge bg-gray-100 text-gray-800">Node.js</span>
+                                    <span class="tech-badge bg-gray-100 text-gray-800">TypeScript</span>
+                                    <span class="tech-badge bg-gray-100 text-gray-800">PostgreSQL</span>
+                                    <span class="tech-badge bg-gray-100 text-gray-800">AWS</span>
+                                </div>
+                            </div>
+                            <div class="md:text-right">
+                                <a href="https://docs.google.com/forms/d/1tYW6ZspUJVYqnZbZl15TJUKtWEZOcDVz0MtlmryxPRM/viewform?edit_requested=true" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition">
+                                    Postuler <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                                <p class="text-sm text-gray-500 mt-2">Clôture : Pas de cloture pour le moment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offre 4 -->
+                <div class="job-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-1">Designer UX Spécialisé Data</h3>
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <span class="department-badge bg-yellow-100 text-yellow-800">
+                                        <i class="fas fa-paint-brush mr-1"></i> Design
+                                    </span>
+                                    <span class="text-gray-500">
+                                        <i class="fas fa-clock mr-1"></i> Bénévole
+                                    </span>
+                                </div>
+                                <p class="text-gray-600 mb-4">
+                                    Concevez des interfaces innovantes pour visualiser les données transports complexes. Vous transformerez des données brutes en expériences utilisateur intuitives.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="tech-badge bg-gray-100 text-gray-800">Figma</span>
+                                    <span class="tech-badge bg-gray-100 text-gray-800">DataViz</span>
+                                    <span class="tech-badge bg-gray-100 text-gray-800">Prototyping</span>
+                                </div>
+                            </div>
+                            <div class="md:text-right">
+                                <a href="#" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition">
+                                    Postuler <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                                <p class="text-sm text-gray-500 mt-2">Clôture : Pas de cloture pour le moment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aucune offre -->
+            <div id="no-results" class="hidden text-center py-12">
+                <i class="fas fa-search fa-3x text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-medium text-gray-700 mb-2">Aucun poste trouvé</h3>
+                <p class="text-gray-500">Aucune offre ne correspond à vos critères. Essayez d'élargir votre recherche.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-blue-600 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Vous ne trouvez pas votre poste idéal ?</h2>
+            <p class="text-xl max-w-2xl mx-auto mb-8">
+                Nous recrutons en permanence des talents passionnés. Envoyez-nous votre candidature spontanée !
+            </p>
+            <a href="#" target="_blank" class="bg-white hover:bg-gray-100 text-blue-800 font-bold py-3 px-8 rounded-full transition inline-flex items-center">
+                <i class="fas fa-paper-plane mr-2"></i> Candidature spontanée
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        La plateforme de données transports la plus complète en France.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="partenaire.html" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="equipe.html" class="text-gray-400 hover:text-white transition">Équipe</a></li>
+                        <li><a href="careers.html" class="text-gray-400 hover:text-white transition">Carrières</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li><a href="confidentialite.html" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo SAS. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filtrage des offres
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const departmentSelect = document.getElementById('department');
+            const locationSelect = document.getElementById('location');
+            const jobCards = document.querySelectorAll('.job-card');
+            const noResults = document.getElementById('no-results');
+
+            function filterJobs() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const department = departmentSelect.value;
+                const location = locationSelect.value;
+                let visibleCount = 0;
+
+                jobCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const dept = card.querySelector('.department-badge').textContent.toLowerCase();
+                    const loc = card.querySelector('[class*="fa-map-marker-alt"]').parentElement.textContent.toLowerCase();
+                    
+                    const matchesSearch = title.includes(searchTerm) || searchTerm === '';
+                    const matchesDept = department === '' || dept.includes(department);
+                    const matchesLoc = location === '' || loc.includes(location);
+                    
+                    if (matchesSearch && matchesDept && matchesLoc) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            }
+
+            searchInput.addEventListener('input', filterJobs);
+            departmentSelect.addEventListener('change', filterJobs);
+            locationSelect.addEventListener('change', filterJobs);
+        });
+    </script>
+</body>
+</html>
