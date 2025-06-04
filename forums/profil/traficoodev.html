@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        .header-gradient {
+            background: linear-gradient(135deg, #003a70 0%, #003a6f 100%);
+        }
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .badge-primary { background-color: #dbeafe; color: #1e40af; }
+        .badge-success { background-color: #dcfce7; color: #166534; }
+        .badge-warning { background-color: #fef9c3; color: #854d0e; }
+
+        .badge-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="header-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="https://traficco.eletrix.fr/assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="https://traficoo.eletrix.fr/index.html" class="hover:underline"><i class="fas fa-home mr-1"></i> Accueil</a>
+                <a href="https://traficoo.eletrix.fr/api.html" class="hover:underline"><i class="fas fa-code mr-1"></i> API</a>
+                <a href="https://traficoo.eletrix.fr/forums.html" class="hover:underline"><i class="fas fa-comments mr-1"></i> Forums</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="edit.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition">
+                    <i class="fas fa-user-edit mr-2"></i> Modifier
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Bannière et avatar -->
+        <div class="relative mb-16">
+            <div class="h-48 w-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-t-xl"></div>
+            <div class="absolute -bottom-12 left-6">
+                <div class="relative">
+                    <img src="pp/traficoodev.png" alt="Avatar" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                    <span class="absolute bottom-0 right-0 bg-green-500 rounded-full w-5 h-5 border-2 border-white"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section info utilisateur -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-3xl font-bold text-gray-800"><Tr>TraficooDev</Tr></h1>
+                    <div class="flex items-center flex-wrap gap-2 mt-2">
+                        <span class="badge badge-warning">
+                            <i class="fas fa-shield-alt mr-1"></i> Administrateur
+                        </span>
+                        <span class="badge badge-primary">
+                            <i class="fas fa-star mr-1"></i> Membre confirmé
+                        </span>
+                        <span class="badge badge-success">
+                            <i class="fas fa-check-circle mr-1"></i> Vérifié
+                        </span>
+                    </div>
+                </div>
+                <div class="flex space-x-3">
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition flex items-center">
+                        <i class="fas fa-user-plus mr-2"></i> Suivre
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600">1,248</div>
+                <div class="text-sm text-gray-500">Points</div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600">142</div>
+                <div class="text-sm text-gray-500">Sujets</div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600">876</div>
+                <div class="text-sm text-gray-500">Réponses</div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600">24</div>
+                <div class="text-sm text-gray-500">Solutions</div>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-200 mb-6 overflow-x-auto">
+            <button class="tab-active px-4 py-2 mr-2 whitespace-nowrap">
+                <i class="fas fa-user mr-2"></i> Profil
+            </button>
+            <button class="px-4 py-2 mr-2 text-gray-600 hover:text-blue-500 whitespace-nowrap">
+                <i class="fas fa-comments mr-2"></i> Discussions
+            </button>
+            <button class="px-4 py-2 mr-2 text-gray-600 hover:text-blue-500 whitespace-nowrap">
+                <i class="fas fa-reply mr-2"></i> Réponses
+            </button>
+            <button class="px-4 py-2 text-gray-600 hover:text-blue-500 whitespace-nowrap">
+                <i class="fas fa-trophy mr-2"></i> Badges
+            </button>
+        </div>
+
+        <!-- Contenu du profil -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Colonne gauche -->
+            <div class="lg:col-span-2">
+                <!-- À propos -->
+                <section class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-info-circle text-blue-500 mr-3"></i>
+                        À propos
+                    </h2>
+                    <div class="prose max-w-none text-gray-700">
+                        <p>Compte officiel de l'équipe de dévellopement de Traficoo.</p>
+                        <p>Ce compte sert à vous aider sur vos sujets.</p>
+                        <p>N'hésiter surtout pas à nous ping !</p>
+                        <p>Photo de profil crée par Freepik</p>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-medium text-gray-700 mb-2"><i class="fas fa-calendar-alt mr-2 text-blue-500"></i> Membre depuis</h3>
+                            <p class="text-gray-600">30 mai 2025</p>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-gray-700 mb-2"><i class="fas fa-globe mr-2 text-blue-500"></i> Site web</h3>
+                            <a href="traficoo.eletrix.fr" class="text-blue-600 hover:underline">traficoo.eletrix.fr</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Activité récente -->
+                <section class="bg-white rounded-xl shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-bolt text-yellow-500 mr-3"></i>
+                        Activité récente
+                    </h2>
+                    
+                    <!-- Activité 1 -->
+                    <div class="border-b border-gray-100 pb-4 mb-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-comment text-blue-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-gray-800 mb-1">A répondu à <a href="#" class="text-blue-600 hover:underline">"Problème d'authentification API v2.1"</a></h3>
+                                <p class="text-gray-600 text-sm mb-2">Il y a 2 heures</p>
+                                <div class="bg-blue-50 p-3 rounded-lg text-sm text-gray-700">
+                                    "La nouvelle version nécessite d'utiliser le header 'TraficooAPI' au lieu de 'Bearer'..."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activité 2 -->
+                    <div class="border-b border-gray-100 pb-4 mb-4">
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-check text-green-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-gray-800 mb-1">A marqué une réponse comme solution dans <a href="#" class="text-blue-600 hover:underline">"Erreur 500 sur l'endpoint /stations"</a></h3>
+                                <p class="text-gray-600 text-sm mb-2">Hier, 14:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activité 3 -->
+                    <div class="border-b border-gray-100 pb-4 mb-4">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-pen-fancy text-purple-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-gray-800 mb-1">A créé un nouveau sujet <a href="#" class="text-blue-600 hover:underline">"Tutoriel : Optimiser les requêtes à l'API"</a></h3>
+                                <p class="text-gray-600 text-sm mb-2">5 janvier 2025</p>
+                                <div class="bg-gray-50 p-3 rounded-lg text-sm text-gray-700">
+                                    "Je partage avec vous quelques astuces pour réduire le nombre d'appels API..."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-block mt-4 text-blue-600 hover:underline">
+                        <i class="fas fa-history mr-1"></i> Voir toute l'activité
+                    </a>
+                </section>
+            </div>
+
+                <!-- Badges -->
+                <section class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-award text-yellow-500 mr-3"></i>
+                        Badges récents
+                    </h2>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-yellow-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-star text-yellow-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">Expert API</span>
+                        </div>
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-blue-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-thumbs-up text-blue-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">50 Solutions</span>
+                        </div>
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-purple-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-bolt text-purple-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">Rapide</span>
+                        </div>
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-green-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-check text-green-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">Vérifié</span>
+                        </div>
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-red-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-heart text-red-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">Contributeur</span>
+                        </div>
+                        <div class="flex flex-col items-center p-2">
+                            <div class="bg-indigo-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-gem text-indigo-500 text-xl"></i>
+                            </div>
+                            <span class="text-xs font-medium text-center">1 an</span>
+                        </div>
+                    </div>
+                    <a href="#" class="inline-block mt-4 text-blue-600 hover:underline text-sm">
+                        <i class="fas fa-trophy mr-1"></i> Voir tous les badges
+                    </a>
+                </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="https://traficoo.eletrix.fr/assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        La communauté des passionnés de transports et de technologie.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Forums</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../forums.html" class="text-gray-400 hover:text-white transition">Catégories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Règles</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Membres</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contacter la modération</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Signalement</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li><a href="../confidentialite.html" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo - Forums communautaires. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion des tabs
+        const tabs = document.querySelectorAll('.flex.border-b button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                // Ici vous pourriez charger le contenu dynamique correspondant
+            });
+        });
+
+        // Simulation de récupération des paramètres d'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id');
+        
+        // En production, vous feriez une requête API ici pour récupérer les données utilisateur
+        console.log("Chargement du profil ID:", userId);
+    </script>
+</body>
+</html>
