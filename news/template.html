@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 1.5rem 0 1rem;
+        }
+        .article-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .article-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .badge-incident {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .badge-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        .badge-alert {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        .badge-work {
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="https://traficoo.eletrix.fr/assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="https://traficoo.eletrix.fr/news.html" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm transition">
+                    <i class="fas fa-arrow-left mr-1"></i> Retour aux actualités
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Bannière d'alerte -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8 rounded-r-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle mr-3 text-xl"></i>
+                <div>
+                    <h3 class="font-bold">Article mis à jour</h3>
+                    <p>Dernière mise à jour : <span class="font-medium">15 novembre 2025 à 14:30</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- En-tête de l'article -->
+        <header class="mb-8">
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+                <span class="badge-incident px-3 py-1 rounded-full text-xs font-bold mr-3">
+                    Incident
+                </span>
+                <span class="mr-3"><i class="fas fa-train mr-1"></i> SNCF</span>
+                <span><i class="far fa-clock mr-1"></i> Publié le 14 novembre 2025 à 08:45</span>
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Perturbations majeures sur la ligne L du Transilien suite à un incident technique</h1>
+            
+            <div class="flex items-center text-gray-600">
+                <div class="flex items-center mr-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Versailles - Saint-Quentin-en-Yvelines</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>Jusqu'au 16 novembre 2025</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Image principale -->
+        <figure class="mb-8 rounded-xl overflow-hidden shadow-lg">
+            <img src="https://traficoo.eletrix.fr/assets/tubmail.jpg" alt="Gare avec affichage des retards" class="w-full">
+            <figcaption class="text-sm text-gray-500 mt-2 px-2">Passagers attendant leur train en gare de Versailles Chantiers - Photo d'illustration</figcaption>
+        </figure>
+
+        <!-- Contenu de l'article -->
+        <article class="article-content bg-white rounded-xl shadow-sm p-6 mb-8">
+            <p class="lead font-medium text-lg text-gray-700 mb-6">
+                Un important incident technique survenu ce matin entre Versailles Chantiers et Saint-Quentin-en-Yvelines perturbe gravement la circulation des trains sur la ligne L du Transilien. Les retards peuvent atteindre 45 minutes en heure de pointe.
+            </p>
+
+            <h2>Détails de l'incident</h2>
+            <p>
+                L'incident a été détecté vers 6h30 ce matin sur un système de signalisation entre les gares de Versailles Chantiers et Saint-Quentin-en-Yvelines. Les équipes techniques de la SNCF sont immédiatement intervenues sur place pour diagnostiquer et réparer le problème.
+            </p>
+            
+            <h2>Conséquences sur le trafic</h2>
+            <p>
+                Le trafic est actuellement organisé comme suit :
+            </p>
+            <ul>
+                <li>1 train sur 2 circule entre Paris Montparnasse et Versailles Chantiers</li>
+                <li>Trafic interrompu entre Versailles Chantiers et Saint-Quentin-en-Yvelines</li>
+                <li>Navettes bus mises en place pour cette section</li>
+                <li>Retards de 20 à 45 minutes sur l'ensemble de la ligne</li>
+            </ul>
+
+            <figure class="my-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <blockquote class="italic text-gray-700">
+                    "Nos équipes travaillent sans relâche pour rétablir un trafic normal. Nous conseillons aux voyageurs de reporter leurs déplacements non essentiels ou de privilégier d'autres moyens de transport."
+                </blockquote>
+                <figcaption class="text-sm text-gray-500 mt-2">
+                    — Jean Dupont, responsable communication SNCF Transilien
+                </figcaption>
+            </figure>
+
+            <h2>Conseils aux voyageurs</h2>
+            <p>
+                Pour faire face à cette situation perturbée, la SNCF recommande :
+            </p>
+            <ul>
+                <li>Prévoir un temps de trajet supplémentaire d'au moins 1 heure</li>
+                <li>Consulter les afficheurs en gare avant d'emprunter un train</li>
+                <li>Télécharger l'application SNCF pour suivre en temps réel votre train</li>
+                <li>En cas de correspondance, prévoir une marge de sécurité importante</li>
+            </ul>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 my-6 rounded-r-lg">
+                <h3 class="font-bold mb-2"><i class="fas fa-info-circle mr-2"></i> Bon à savoir</h3>
+                <p>
+                    En cas de retard supérieur à 30 minutes, vous pouvez demander une indemnisation via le formulaire en ligne sur le site SNCF.
+                </p>
+            </div>
+
+            <h2>Perspectives de retour à la normale</h2>
+            <p>
+                Selon les premières estimations des équipes techniques, un retour à un trafic normal n'est pas attendu avant demain matin. Des perturbations résiduelles pourraient cependant persister jusqu'en début d'après-midi.
+            </p>
+        </article>
+
+        <!-- Carte interactive -->
+        <section class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800"><i class="fas fa-map-marked-alt mr-2 text-blue-500"></i> Zone concernée par les perturbations</h2>
+                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-expand mr-1"></i> Agrandir
+                </button>
+            </div>
+            <div class="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+                <p class="text-gray-500"><i class="fas fa-map mr-2"></i> Carte interactive des perturbations</p>
+            </div>
+            <div class="mt-3 text-sm text-gray-500">
+                <p>Cliquez sur les stations pour voir les horaires modifiés</p>
+            </div>
+        </section>
+
+        <!-- Articles similaires -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Articles similaires</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="group">
+                    <div class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="badge-work px-2 py-1 rounded-full text-xs font-bold mr-2">
+                                Travaux
+                            </span>
+                            <span>SNCF • 12 nov. 2025</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-600">Travaux de modernisation sur la ligne L jusqu'en décembre</h3>
+                    </div>
+                </a>
+                <a href="#" class="group">
+                    <div class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="badge-alert px-2 py-1 rounded-full text-xs font-bold mr-2">
+                                Alerte
+                            </span>
+                            <span>Transilien • 10 nov. 2025</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-600">Mouvement social prévu le 18 novembre sur les lignes N et L</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Partage social -->
+        <section class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Partager cet article</h2>
+            <div class="flex space-x-3">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-full">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-full">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="#" class="bg-gray-200 hover:bg-gray-300 text-gray-800 p-3 rounded-full">
+                    <i class="fas fa-link"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Commentaires -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Commentaires (23)</h2>
+                <button class="text-blue-600 hover:text-blue-800 font-medium">
+                    <i class="fas fa-sort mr-1"></i> Trier
+                </button>
+            </div>
+
+            <!-- Formulaire de commentaire -->
+            <form class="mb-6">
+                <div class="mb-4">
+                    <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ajouter un commentaire..."></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">
+                        Publier
+                    </button>
+                </div>
+            </form>
+
+            <!-- Liste des commentaires -->
+            <div class="space-y-6">
+                <!-- Commentaire 1 -->
+                <div class="border-b border-gray-200 pb-6">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Marc D.</h4>
+                            <p class="text-sm text-gray-500">Il y a 2 heures • <span class="text-blue-600">Paris 15e</span></p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-3">C'est la 3ème fois ce mois-ci que cette ligne a des problèmes. La SNCF doit vraiment investir dans la modernisation de ses infrastructures !</p>
+                    <div class="flex space-x-4 text-sm text-gray-500">
+                        <button class="hover:text-blue-600"><i class="far fa-thumbs-up mr-1"></i> 12</button>
+                        <button class="hover:text-blue-600"><i class="far fa-thumbs-down mr-1"></i> 2</button>
+                        <button class="hover:text-blue-600">Répondre</button>
+                    </div>
+                </div>
+
+                <!-- Commentaire 2 -->
+                <div class="border-b border-gray-200 pb-6">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sophie T.</h4>
+                            <p class="text-sm text-gray-500">Il y a 4 heures • <span class="text-blue-600">Versailles</span></p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-3">Merci pour ces informations détaillées. Les navettes bus sont-elles accessibles aux personnes à mobilité réduite ?</p>
+                    <div class="flex space-x-4 text-sm text-gray-500">
+                        <button class="hover:text-blue-600"><i class="far fa-thumbs-up mr-1"></i> 5</button>
+                        <button class="hover:text-blue-600"><i class="far fa-thumbs-down mr-1"></i> 0</button>
+                        <button class="hover:text-blue-600">Répondre</button>
+                    </div>
+
+                    <!-- Réponse -->
+                    <div class="mt-4 pl-4 border-l-2 border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-blue-500 text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Traficoo Officiel</h4>
+                                <p class="text-xs text-gray-500">Il y a 3 heures</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3">Bonjour Sophie, oui toutes les navettes mises en place sont accessibles aux PMR avec un plancher bas et un système de rampe.</p>
+                        <div class="flex space-x-4 text-xs text-gray-500">
+                            <button class="hover:text-blue-600"><i class="far fa-thumbs-up mr-1"></i> 8</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mt-6 text-blue-600 hover:text-blue-800 font-medium w-full py-2 border border-gray-300 rounded-lg">
+                <i class="fas fa-chevron-down mr-1"></i> Voir plus de commentaires
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="https://traficoo.eletrix.fr/assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Toutes les informations sur le trafic en temps réel.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://traficoo.eletrix.fr/index.html" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/news.html" class="text-gray-400 hover:text-white transition">Actualités</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/explore.html" class="text-gray-400 hover:text-white transition">Explorateur</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Alertes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Réseaux</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://traficoo.eletrix.fr/sncf.html" class="text-gray-400 hover:text-white transition">SNCF/Transilien</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/ratp.html" class="text-gray-400 hover:text-white transition">RATP</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/ter.html" class="text-gray-400 hover:text-white transition">TER</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/lignes.html" class="text-gray-400 hover:text-white transition">Transports urbains</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://traficoo.eletrix.fr/mentions-légales.html" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/confidentialité.html" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                        <li><a href="https://traficoo.eletrix.fr/cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Tout droits réservés</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
