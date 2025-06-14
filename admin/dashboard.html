@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar-collapsed {
+            width: 80px;
+        }
+        .sidebar-collapsed .sidebar-text {
+            display: none;
+        }
+        .content-expanded {
+            margin-left: 80px;
+        }
+        .badge-success {
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+        .badge-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .badge-danger {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar -->
+    <div class="flex">
+        <div class="sidebar fixed h-full bg-gray-800 text-white w-64 sidebar-collapsed" id="sidebar">
+            <div class="p-4 border-b border-gray-700 flex items-center justify-between">
+                <a href="index.html" class="flex items-center">
+                    <div class="bg-white rounded-lg p-1 mr-3">
+                        <img src="../assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                    </div>
+                    <span class="sidebar-text font-bold text-lg">Traficoo Admin</span>
+                </a>
+                <button id="toggle-sidebar" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="p-4">
+                <div class="mb-6">
+                    <p class="sidebar-text text-gray-400 uppercase text-xs font-bold mb-2">Principal</p>
+                    <ul>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-gray-700 text-white">
+                                <i class="fas fa-tachometer-alt mr-3"></i>
+                                <span class="sidebar-text">Tableau de bord</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <p class="sidebar-text text-gray-400 uppercase text-xs font-bold mb-2">Contenu</p>
+                    <ul>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-newspaper mr-3"></i>
+                                <span class="sidebar-text">Actualités</span>
+                            </a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-exclamation-triangle mr-3"></i>
+                                <span class="sidebar-text">Alertes trafic</span>
+                            </a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-map-marked-alt mr-3"></i>
+                                <span class="sidebar-text">Cartes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <p class="sidebar-text text-gray-400 uppercase text-xs font-bold mb-2">Utilisateurs</p>
+                    <ul>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-users mr-3"></i>
+                                <span class="sidebar-text">Tous les utilisateurs</span>
+                            </a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-key mr-3"></i>
+                                <span class="sidebar-text">Clés API</span>
+                            </a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-user-shield mr-3"></i>
+                                <span class="sidebar-text">Rôles & Permissions</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <p class="sidebar-text text-gray-400 uppercase text-xs font-bold mb-2">Paramètres</p>
+                    <ul>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-cog mr-3"></i>
+                                <span class="sidebar-text">Configuration</span>
+                            </a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                                <i class="fas fa-plug mr-3"></i>
+                                <span class="sidebar-text">Intégrations</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="content-expanded flex-1 min-h-screen">
+            <!-- Topbar -->
+            <header class="bg-white shadow-sm">
+                <div class="flex justify-between items-center px-6 py-4">
+                    <h1 class="text-2xl font-bold text-gray-800">Tableau de bord</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <div class="relative">
+                            <button id="user-menu-button" class="flex items-center space-x-2">
+                                <div class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+                                    <i class="fas fa-user text-gray-600"></i>
+                                </div>
+                                <span class="hidden md:inline">Admin</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Paramètres</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Déconnexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenu -->
+            <main class="p-6">
+                <!-- Statistiques -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Utilisateurs actifs</p>
+                                <h3 class="text-2xl font-bold">1,248</h3>
+                                <p class="text-green-500 text-sm"><i class="fas fa-arrow-up mr-1"></i> 12% ce mois</p>
+                            </div>
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Requêtes API</p>
+                                <h3 class="text-2xl font-bold">24.7K</h3>
+                                <p class="text-green-500 text-sm"><i class="fas fa-arrow-up mr-1"></i> 8% aujourd'hui</p>
+                            </div>
+                            <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                                <i class="fas fa-bolt text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Alertes actives</p>
+                                <h3 class="text-2xl font-bold">14</h3>
+                                <p class="text-red-500 text-sm"><i class="fas fa-arrow-up mr-1"></i> 3 nouvelles</p>
+                            </div>
+                            <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full">
+                                <i class="fas fa-exclamation-triangle text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500">Taux d'erreur</p>
+                                <h3 class="text-2xl font-bold">0.23%</h3>
+                                <p class="text-green-500 text-sm"><i class="fas fa-arrow-down mr-1"></i> 0.1% ce mois</p>
+                            </div>
+                            <div class="bg-red-100 text-red-600 p-3 rounded-full">
+                                <i class="fas fa-bug text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dernières alertes -->
+                <div class="bg-white rounded-lg shadow mb-6">
+                    <div class="p-5 border-b border-gray-200">
+                        <h2 class="text-lg font-bold text-gray-800">Dernières alertes trafic</h2>
+                    </div>
+                    <div class="p-5">
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 rounded-lg bg-red-50">
+                                <div class="bg-red-100 text-red-600 p-2 rounded-full mr-4">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold">Ligne L - Incident technique</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Perturbations entre Versailles et Saint-Quentin-en-Yvelines. Retards jusqu'à 45 minutes.</p>
+                                    <div class="flex items-center text-xs text-gray-500">
+                                        <span class="mr-3"><i class="far fa-clock mr-1"></i> Il y a 2 heures</span>
+                                        <span><i class="fas fa-train mr-1"></i> SNCF</span>
+                                    </div>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-start p-3 rounded-lg bg-yellow-50">
+                                <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full mr-4">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold">Métro ligne 1 - Travaux nocturnes</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Fermeture entre Charles de Gaulle - Étoile et Bastille de 22h30 à 5h30 jusqu'au 25 novembre.</p>
+                                    <div class="flex items-center text-xs text-gray-500">
+                                        <span class="mr-3"><i class="far fa-clock mr-1"></i> Hier, 18:30</span>
+                                        <span><i class="fas fa-subway mr-1"></i> RATP</span>
+                                    </div>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-start p-3 rounded-lg bg-blue-50">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-4">
+                                    <i class="fas fa-info"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold">Nouvelle ligne de tramway</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Prolongation de la ligne E du tramway bordelais à partir du 15 décembre.</p>
+                                    <div class="flex items-center text-xs text-gray-500">
+                                        <span class="mr-3"><i class="far fa-clock mr-1"></i> 12 nov. 2025</span>
+                                        <span><i class="fas fa-tram mr-1"></i> Bordeaux</span>
+                                    </div>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">
+                                <i class="fas fa-plus mr-1"></i> Créer une nouvelle alerte
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Derniers utilisateurs -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-5 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-lg font-bold text-gray-800">Derniers utilisateurs</h2>
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Voir tout</a>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="table-responsive">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="text-left text-gray-500 border-b border-gray-200">
+                                            <th class="pb-3">Utilisateur</th>
+                                            <th class="pb-3">Inscription</th>
+                                            <th class="pb-3">Statut</th>
+                                            <th class="pb-3"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="py-3">
+                                                <div class="flex items-center">
+                                                    <div class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                                        <i class="fas fa-user text-gray-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Pierre Martin</p>
+                                                        <p class="text-gray-500 text-xs">pierre.martin@example.com</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">Aujourd'hui</td>
+                                            <td class="py-3">
+                                                <span class="badge-success px-2 py-1 rounded-full text-xs">Actif</span>
+                                            </td>
+                                            <td class="py-3 text-right">
+                                                <button class="text-gray-400 hover:text-gray-600">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3">
+                                                <div class="flex items-center">
+                                                    <div class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                                        <i class="fas fa-user text-gray-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Sophie Dupont</p>
+                                                        <p class="text-gray-500 text-xs">sophie.dupont@example.com</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">Hier</td>
+                                            <td class="py-3">
+                                                <span class="badge-success px-2 py-1 rounded-full text-xs">Actif</span>
+                                            </td>
+                                            <td class="py-3 text-right">
+                                                <button class="text-gray-400 hover:text-gray-600">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3">
+                                                <div class="flex items-center">
+                                                    <div class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                                        <i class="fas fa-user text-gray-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Transport IDF</p>
+                                                        <p class="text-gray-500 text-xs">contact@transport-idf.fr</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">15 nov.</td>
+                                            <td class="py-3">
+                                                <span class="badge-warning px-2 py-1 rounded-full text-xs">En attente</span>
+                                            </td>
+                                            <td class="py-3 text-right">
+                                                <button class="text-gray-400 hover:text-gray-600">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3">
+                                                <div class="flex items-center">
+                                                    <div class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                                        <i class="fas fa-user text-gray-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Jean Leroy</p>
+                                                        <p class="text-gray-500 text-xs">jean.leroy@example.com</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">14 nov.</td>
+                                            <td class="py-3">
+                                                <span class="badge-danger px-2 py-1 rounded-full text-xs">Bloqué</span>
+                                            </td>
+                                            <td class="py-3 text-right">
+                                                <button class="text-gray-400 hover:text-gray-600">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activité récente -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-5 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-lg font-bold text-gray-800">Activité récente</h2>
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Voir tout</a>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-4">
+                                        <i class="fas fa-key"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Nouvelle clé API générée</h4>
+                                        <p class="text-sm text-gray-600 mb-2">Clé "App Mobile v2" créée par Sophie Dupont</p>
+                                        <p class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> Il y a 15 minutes</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-green-100 text-green-600 p-2 rounded-full mr-4">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Article publié</h4>
+                                        <p class="text-sm text-gray-600 mb-2">"Perturbations sur la ligne L du Transilien"</p>
+                                        <p class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> Il y a 2 heures</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-purple-100 text-purple-600 p-2 rounded-full mr-4">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Nouvel utilisateur</h4>
+                                        <p class="text-sm text-gray-600 mb-2">Pierre Martin s'est inscrit avec un compte gratuit</p>
+                                        <p class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> Aujourd'hui, 09:30</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full mr-4">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Alerte créée</h4>
+                                        <p class="text-sm text-gray-600 mb-2">"Travaux sur la ligne 1 du métro"</p>
+                                        <p class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> Hier, 18:45</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+            async function verifierMotDePasse() {
+      const mdpUtilisateur = prompt("Entrez le mot de passe :");
+
+      try {
+        const response = await fetch("https://omega.eletrix.fr:1035/adm/mdp.json");
+        const data = await response.json();
+        const motDePasseCorrect = data.motdepasse; // Assure-toi que le JSON a cette clé
+
+        if (mdpUtilisateur === motDePasseCorrect) {
+          alert("Mot de passe correct. Accès autorisé !");
+          // Rediriger vers la page protégée ou afficher du contenu
+          document.getElementById("contenu").style.display = "block";
+        } else {
+          alert("Mot de passe incorrect !");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification du mot de passe :", error);
+        alert("Erreur lors de la vérification.");
+      }
+    }
+
+    window.onload = verifierMotDePasse;
+
+
+        // Toggle sidebar
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-collapsed');
+            
+            const content = document.querySelector('.content-expanded');
+            content.classList.toggle('lg:ml-64');
+            content.classList.toggle('lg:ml-20');
+        });
+
+        // Toggle user menu
+        document.getElementById('user-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('user-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userButton = document.getElementById('user-menu-button');
+            
+            if (!userButton.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
