@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traficoo | Carte des transports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        #map { height: 500px; width: 100%; border-radius: 0.75rem; }
+        .transport-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        .train { background-color: #3b82f6; }
+        .bus { background-color: #10b981; }
+        .metro { background-color: #ef4444; }
+        .tram { background-color: #8b5cf6; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Carte interactive</span></h1>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <section class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-map-marked-alt text-blue-500 mr-2"></i>
+                Carte interactive des transports
+            </h1>
+            <p class="text-gray-600">Visualisez les stations et lignes de transport en temps réel</p>
+        </section>
+
+        <!-- Formulaire de recherche -->
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Ville</label>
+                    <select id="city-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="paris">Paris</option>
+                        <option value="lyon">Lyon</option>
+                        <option value="marseille">Marseille</option>
+                        <option value="toulouse">Toulouse</option>
+                        <option value="lille">Lille</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Départ</label>
+                    <select id="departure-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" disabled>
+                        <option value="">Choisissez une ville d'abord</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                    <select id="arrival-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" disabled>
+                        <option value="">Choisissez une ville d'abord</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button id="search-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition flex items-center justify-center">
+                        <i class="fas fa-search mr-2"></i> Rechercher
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                <div class="flex items-center">
+                    <div class="transport-icon train mr-1"><i class="fas fa-train"></i></div>
+                    <span class="text-sm">Train</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="transport-icon metro mr-1"><i class="fas fa-subway"></i></div>
+                    <span class="text-sm">Métro</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="transport-icon bus mr-1"><i class="fas fa-bus"></i></div>
+                    <span class="text-sm">Bus</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="transport-icon tram mr-1"><i class="fas fa-tram"></i></div>
+                    <span class="text-sm">Tramway</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carte et résultats -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Carte -->
+            <div class="lg:col-span-2">
+                <div id="map" class="shadow-md"></div>
+            </div>
+            
+            <!-- Résultats -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-list-ul text-blue-500 mr-2"></i>
+                    Résultats
+                </h2>
+                
+                <div id="results-container" class="space-y-4">
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-map-marked-alt text-3xl mb-2"></i>
+                        <p>Sélectionnez une ville et des stations pour voir les résultats</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        API unifiée pour les données de transport en France.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="api.html" class="text-gray-400 hover:text-white transition">API</a></li>
+                        <li><a href="map.html" class="text-gray-400 hover:text-white transition">Carte interactive</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="link/statut.html" class="text-gray-400 hover:text-white transition">Statut du service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="cgu.html" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li><a href="confidentialite.html" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Données sous licence Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialisation de la carte
+        const map = L.map('map').setView([46.2276, 2.2137], 6); // Centré sur la France
+        
+        // Ajout des tuiles OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Données simulées pour les stations
+        const cityStations = {
+            paris: [
+                { id: 'paris-gare-lyon', name: 'Paris Gare de Lyon', type: 'train', lat: 48.8445, lng: 2.3737 },
+                { id: 'paris-nord', name: 'Paris Gare du Nord', type: 'train', lat: 48.8808, lng: 2.3549 },
+                { id: 'paris-chatelet', name: 'Châtelet', type: 'metro', lat: 48.8584, lng: 2.3470 },
+                { id: 'paris-opera', name: 'Opéra', type: 'metro', lat: 48.8709, lng: 2.3316 },
+                { id: 'paris-bastille', name: 'Bastille', type: 'bus', lat: 48.8531, lng: 2.3692 }
+            ],
+            lyon: [
+                { id: 'lyon-part-dieu', name: 'Lyon Part-Dieu', type: 'train', lat: 45.7606, lng: 4.8604 },
+                { id: 'lyon-perrache', name: 'Lyon Perrache', type: 'train', lat: 45.7489, lng: 4.8257 },
+                { id: 'lyon-bellecour', name: 'Bellecour', type: 'metro', lat: 45.7578, lng: 4.8324 },
+                { id: 'lyon-hotel-ville', name: 'Hôtel de Ville', type: 'metro', lat: 45.7679, lng: 4.8349 }
+            ],
+            marseille: [
+                { id: 'marseille-st-charles', name: 'Marseille St Charles', type: 'train', lat: 43.3032, lng: 5.3842 },
+                { id: 'marseille-vieux-port', name: 'Vieux Port', type: 'metro', lat: 43.2956, lng: 5.3746 },
+                { id: 'marseille-castellane', name: 'Castellane', type: 'metro', lat: 43.2871, lng: 5.3834 }
+            ]
+        };
+
+        // Gestion des événements
+        document.getElementById('city-select').addEventListener('change', function() {
+            const city = this.value;
+            const departureSelect = document.getElementById('departure-select');
+            const arrivalSelect = document.getElementById('arrival-select');
+            
+            // Réinitialiser les sélecteurs
+            departureSelect.innerHTML = '<option value="">Sélectionnez un départ</option>';
+            arrivalSelect.innerHTML = '<option value="">Sélectionnez une arrivée</option>';
+            
+            if (city && cityStations[city]) {
+                departureSelect.disabled = false;
+                arrivalSelect.disabled = false;
+                
+                // Remplir les options
+                cityStations[city].forEach(station => {
+                    const option = document.createElement('option');
+                    option.value = station.id;
+                    option.textContent = station.name;
+                    
+                    departureSelect.appendChild(option.cloneNode(true));
+                    arrivalSelect.appendChild(option);
+                });
+                
+                // Centrer la carte sur la ville sélectionnée
+                const firstStation = cityStations[city][0];
+                map.setView([firstStation.lat, firstStation.lng], 13);
+                
+                // Ajouter les marqueurs
+                cityStations[city].forEach(station => {
+                    let iconClass;
+                    switch(station.type) {
+                        case 'train': iconClass = 'train'; break;
+                        case 'metro': iconClass = 'metro'; break;
+                        case 'bus': iconClass = 'bus'; break;
+                        case 'tram': iconClass = 'tram'; break;
+                        default: iconClass = 'train';
+                    }
+                    
+                    const marker = L.marker([station.lat, station.lng], {
+                        icon: L.divIcon({
+                            className: 'transport-icon ' + iconClass,
+                            html: `<i class="fas fa-${station.type === 'metro' ? 'subway' : station.type}"></i>`,
+                            iconSize: [24, 24]
+                        })
+                    }).addTo(map);
+                    
+                    marker.bindPopup(`<b>${station.name}</b><br>Type: ${station.type}`);
+                });
+            } else {
+                departureSelect.disabled = true;
+                arrivalSelect.disabled = true;
+            }
+        });
+
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const departureId = document.getElementById('departure-select').value;
+            const arrivalId = document.getElementById('arrival-select').value;
+            const city = document.getElementById('city-select').value;
+            
+            if (!city || !departureId || !arrivalId) {
+                alert('Veuillez sélectionner une ville, un départ et une arrivée');
+                return;
+            }
+            
+            // Simuler une recherche
+            const departure = cityStations[city].find(s => s.id === departureId);
+            const arrival = cityStations[city].find(s => s.id === arrivalId);
+            
+            // Afficher les résultats
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = `
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-bold text-blue-800 mb-2">Itinéraire trouvé</h3>
+                    <p>De <b>${departure.name}</b> à <b>${arrival.name}</b></p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                        <div class="transport-icon train mr-3 mt-1"><i class="fas fa-train"></i></div>
+                        <div>
+                            <h4 class="font-medium">Ligne A</h4>
+                            <p class="text-sm text-gray-600">Direction ${arrival.name}</p>
+                            <p class="text-sm text-gray-500">Départ dans 5 min • Durée: 12 min</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                        <div class="transport-icon metro mr-3 mt-1"><i class="fas fa-subway"></i></div>
+                        <div>
+                            <h4 class="font-medium">Ligne 1</h4>
+                            <p class="text-sm text-gray-600">Direction ${arrival.name}</p>
+                            <p class="text-sm text-gray-500">Départ dans 8 min • Durée: 15 min</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Tracer un itinéraire sur la carte (simulé)
+            if (window.route) {
+                map.removeLayer(window.route);
+            }
+            
+            const route = L.polyline([
+                [departure.lat, departure.lng],
+                [arrival.lat, arrival.lng]
+            ], {color: 'blue'}).addTo(map);
+            
+            window.route = route;
+            
+            // Ajuster la vue pour voir les deux points
+            const bounds = L.latLngBounds(
+                [departure.lat, departure.lng],
+                [arrival.lat, arrival.lng]
+            );
+            map.fitBounds(bounds, {padding: [50, 50]});
+        });
+    </script>
+</body>
+</html>

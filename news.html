@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités Trafic | Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --api-blue: #0369a1;
+            --api-dark: #1e293b;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        .api-gradient {
+            background: linear-gradient(135deg, var(--api-blue) 0%, var(--api-dark) 100%);
+        }
+        .news-card {
+            transition: all 0.3s ease;
+            min-height: 100%;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .badge-incident {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .badge-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        .badge-alert {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="api-gradient text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-white rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo <span class="text-sm font-light">Actualités</span></h1>
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="explore.html" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm transition">
+                    <i class="fas fa-search mr-1"></i> Explorer le trafic
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Bannière d'alerte -->
+        <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-r-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle mr-3 text-xl"></i>
+                <div>
+                    <h3 class="font-bold">Alerte Trafic</h3>
+                    <p>Grève nationale prévue le 15 novembre - Perturbations importantes sur tous les réseaux</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Titre et filtres -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Actualités du trafic</h2>
+                    <p class="text-gray-600">Dernières informations sur les perturbations, travaux et alertes</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <label for="news-filter" class="sr-only">Filtrer par</label>
+                    <select id="news-filter" class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="all">Toutes les actualités</option>
+                        <option value="incident">Incidents</option>
+                        <option value="work">Travaux</option>
+                        <option value="alert">Alertes</option>
+                        <option value="info">Informations</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filtres rapides -->
+            <div class="flex flex-wrap gap-2">
+                <button class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center">
+                    <i class="fas fa-train mr-1"></i> SNCF
+                </button>
+                <button class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                    <i class="fas fa-subway mr-1"></i> RATP
+                </button>
+                <button class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                    <i class="fas fa-bus mr-1"></i> Transports urbains
+                </button>
+                <button class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                    <i class="fas fa-road mr-1"></i> Routes
+                </button>
+                <button class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center">
+                    <i class="fas fa-map-marker-alt mr-1"></i> Île-de-France
+                </button>
+            </div>
+        </section>
+
+        <!-- Grille d'actualités -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Carte d'actualité 1 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?train,station" alt="Gare SNCF" class="w-full h-48 object-cover">
+                        <span class="badge-incident absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-bold">
+                            Incident
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-train mr-1"></i>
+                            <span class="mr-3">SNCF</span>
+                            <i class="far fa-clock mr-1"></i>
+                            <span>Il y a 2 heures</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Perturbations sur la ligne L du Transilien</h3>
+                        <p class="text-gray-600 mb-4">Un incident technique entre Versailles Chantiers et Saint-Quentin-en-Yvelines cause des retards jusqu'à 45 minutes.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-blue-600 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Île-de-France
+                            </span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lire la suite <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte d'actualité 2 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?subway" alt="Métro Parisien" class="w-full h-48 object-cover">
+                        <span class="badge-work absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
+                            Travaux
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-subway mr-1"></i>
+                            <span class="mr-3">RATP</span>
+                            <i class="far fa-clock mr-1"></i>
+                            <span>Hier, 18:30</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Travaux nocturnes sur la ligne 1 du métro</h3>
+                        <p class="text-gray-600 mb-4">La ligne 1 sera fermée entre Charles de Gaulle - Étoile et Bastille tous les soirs de 22h30 à 5h30 du 10 au 25 novembre.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-blue-600 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Paris
+                            </span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lire la suite <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte d'actualité 3 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?bus" alt="Bus urbain" class="w-full h-48 object-cover">
+                        <span class="badge-alert absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-bold">
+                            Alerte
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-bus mr-1"></i>
+                            <span class="mr-3">TCL Lyon</span>
+                            <i class="far fa-clock mr-1"></i>
+                            <span>Aujourd'hui, 07:15</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Grève des bus lyonnais ce vendredi</h3>
+                        <p class="text-gray-600 mb-4">Mouvement social annoncé, seulement 40% des bus en circulation prévus sur le réseau TCL. Privilégiez le métro et tramway.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-blue-600 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Lyon
+                            </span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lire la suite <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte d'actualité 4 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?highway" alt="Autoroute" class="w-full h-48 object-cover">
+                        <span class="badge-info absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-bold">
+                            Information
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-road mr-1"></i>
+                            <span class="mr-3">Routes</span>
+                            <i class="far fa-clock mr-1"></i>
+                            <span>14 nov. 2025</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Nouveau radar sur l'A6 entre Paris et Lyon</h3>
+                        <p class="text-gray-600 mb-4">Un radar tronçon vient d'être installé sur l'autoroute A6 entre Auxerre et Avallon. Limite à 110 km/h.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-blue-600 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Bourgogne
+                            </span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lire la suite <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte d'actualité 5 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/600x400/?tram" alt="Tramway" class="w-full h-48 object-cover">
+                        <span class="badge-info absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-bold">
+                            Information
+                        </span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-tram mr-1"></i>
+                            <span class="mr-3">Tramway</span>
+                            <i class="far fa-clock mr-1"></i>
+                            <span>12 nov. 2025</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Nouvelle ligne de tramway à Bordeaux</h3>
+                        <p class="text-gray-600 mb-4">La ligne E du tramway bordelais sera prolongée de 5 stations à partir du 15 décembre 2025.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-blue-600 flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Bordeaux
+                            </span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lire la suite <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Carte d'actualité 6 -->
+                <article class="news-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <div class="p-5">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="fas fa-rss mr-1"></i>
+                            <span>Abonnez-vous aux alertes</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Recevez les alertes trafic en temps réel</h3>
+                        <p class="text-gray-600 mb-4">Ne manquez aucune information sur les perturbations en vous abonnant à notre service d'alertes.</p>
+                        <div class="space-y-3">
+                            <input type="email" placeholder="Votre email" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                <option>Région à surveiller</option>
+                                <option>Île-de-France</option>
+                                <option>Auvergne-Rhône-Alpes</option>
+                                <option>Nouvelle-Aquitaine</option>
+                                <option>Occitanie</option>
+                            </select>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                S'abonner
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Pagination -->
+        <div class="flex justify-center">
+            <nav class="inline-flex rounded-md shadow">
+                <button class="px-3 py-1 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-3 py-1 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                    1
+                </button>
+                <button class="px-3 py-1 border border-gray-300 bg-blue-500 text-white">
+                    2
+                </button>
+                <button class="px-3 py-1 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                    3
+                </button>
+                <button class="px-3 py-1 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-6 w-6">
+                        </div>
+                        Traficoo
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Toutes les informations sur le trafic en temps réel.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Réseaux</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">SNCF</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">RATP</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">TER</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Transports urbains</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="explore.html" class="text-gray-400 hover:text-white transition">Explorateur</a></li>
+                        <li><a href="news.html" class="text-gray-400 hover:text-white transition">Actualités</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Alertes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Aide</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center">
+                <p>© 2025 Traficoo | Tout droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filtrage des actualités
+        document.getElementById('news-filter').addEventListener('change', function() {
+            const filter = this.value;
+            console.log('Filtrer par:', filter);
+            // Ici vous pourriez implémenter le filtrage des cartes d'actualités
+        });
+    </script>
+</body>
+</html>
