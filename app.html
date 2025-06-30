@@ -1,0 +1,464 @@
+<!-- App :
+Windows : build 1.0.0 - 30/06/25
+MacOS : 0
+Linux : 0
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Télécharger Traficoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --primary: #0369a1;
+            --secondary: #1e293b;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+        }
+        .download-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .platform-btn:hover {
+            transform: scale(1.03);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+        .highlight {
+            position: relative;
+        }
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(3, 105, 161, 0.2);
+            z-index: -1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <div class="bg-blue-100 rounded-lg p-1 mr-3">
+                    <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                </div>
+                <h1 class="text-2xl font-bold">Traficoo</h1>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="accueil.html" class="text-gray-600 hover:text-blue-600">Fonctionnalités</a>
+                <a href="app/download/win-1-0-0.html" class="text-blue-600 font-medium">Télécharger</a>
+                <a href="support.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="login.html" class="text-gray-600 hover:text-blue-600">Connexion</a>
+                <a href="register.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Créer un compte</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-16 md:py-24 bg-gradient-to-r from-blue-50 to-cyan-50">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                Téléchargez <span class="highlight">Traficoo</span> dès maintenant
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                L'outil professionnel pour gérez à 100% le trafics de france.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mb-16">
+                <a href="#windows" class="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium flex items-center platform-btn transition">
+                    <i class="fab fa-windows text-blue-500 text-2xl mr-3"></i>
+                    Windows
+                </a>
+                <a href="#mac" class="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium flex items-center platform-btn transition">
+                    <i class="fab fa-apple text-gray-800 text-2xl mr-3"></i>
+                    macOS
+                </a>
+                <a href="#linux" class="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium flex items-center platform-btn transition">
+                    <i class="fab fa-linux text-gray-800 text-2xl mr-3"></i>
+                    Linux
+                </a>
+                <a href="#mobile" class="bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium flex items-center platform-btn transition">
+                    <i class="fas fa-mobile-alt text-blue-400 text-2xl mr-3"></i>
+                    Mobile
+                </a>
+            </div>
+            <div class="text-sm text-gray-500">
+                <p>Version actuelle : <span class="font-medium">1.0.0</span> • Dernière mise à jour : <span class="font-medium">30 juin 2025</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white" id="windows">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-windows text-blue-500 text-3xl mr-4"></i>
+                            <h2 class="text-3xl font-bold text-gray-800">Version Windows</h2>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Traficoo pour Windows offre une expérience complète avec des fonctionnalités avancées d'analyse du trafic et une intégration parfaite avec vos outils existants.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Compatibilité Windows 10/11</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Installation en 2 minutes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Mises à jour automatiques</span>
+                            </li>
+                        </ul>
+                        <div class="space-y-3">
+                            <a href="app/download/win-1-0-0.html" class="block bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-6 rounded-lg font-medium transition">
+                                <i class="fas fa-download mr-2"></i> Télécharger pour Windows (64-bit)
+                            </a>
+                            <a href="changelogs.html" class="block text-center text-blue-600 hover:text-blue-800 text-sm">
+                                Version 32-bit • Notes de version • Bientôt disponible
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="download-card bg-gray-50 rounded-xl p-6 border border-gray-200">
+                            <img src="assets/win.PNG" alt="Traficoo sur Windows" class="w-full rounded-lg mb-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 mb-2">Configuration requise :</p>
+                                <p class="text-gray-600">Windows 10/11 • 2GB RAM • 250MB espace disque</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50" id="mac">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row-reverse items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pl-10">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-apple text-gray-800 text-3xl mr-4"></i>
+                            <h2 class="text-3xl font-bold text-gray-800">Version macOS</h2>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Une expérience Mac native optimisée pour les professionnels avec des fonctionnalités exclusives comme le Touch Bar et les raccourcis trackpad.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Compatibilité macOS 11+</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Optimisé pour les puces Apple Silicon</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Intégration avec les autres apps Apple</span>
+                            </li>
+                        </ul>
+                        <div class="space-y-3">
+                            <a href="#" class="block bg-gray-800 hover:bg-gray-900 text-white text-center py-3 px-6 rounded-lg font-medium transition">
+                                <i class="fas fa-download mr-2"></i> Télécharger pour macOS • Bientôt disponible
+                            </a>
+                            <a href="changelogs.html" class="block text-center text-blue-600 hover:text-blue-800 text-sm">
+                                Version Intel • Notes de version • Bientôt disponible
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="download-card bg-white rounded-xl p-6 border border-gray-200">
+                            <img src="assets/tubmail.jpg" alt="Traficoo sur macOS" class="w-full rounded-lg mb-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 mb-2">Configuration requise :</p>
+                                <p class="text-gray-600">macOS 11+ • 4GB RAM • 400MB espace disque</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white" id="linux">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-linux text-gray-800 text-3xl mr-4"></i>
+                            <h2 class="text-3xl font-bold text-gray-800">Version Linux</h2>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            La solution open-source pour les administrateurs système et les professionnels du trafic qui privilégient la flexibilité et le contrôle.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Packages .deb et .rpm disponibles</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Support des architectures x86 et ARM</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Interface en ligne de commande incluse</span>
+                            </li>
+                        </ul>
+                        <div class="space-y-3">
+                            <a href="#" class="block bg-orange-600 hover:bg-orange-700 text-white text-center py-3 px-6 rounded-lg font-medium transition">
+                                <i class="fas fa-download mr-2"></i> Télécharger pour Linux • Bientôt disponible
+                            </a>
+                            <div class="flex flex-wrap gap-2 justify-center">
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">.deb (Debian/Ubuntu) • Bientôt disponible</a>
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">.rpm (Fedora/RHEL) • Bientôt disponible</a>
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Arch Linux • Bientôt disponible</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="download-card bg-gray-50 rounded-xl p-6 border border-gray-200">
+                            <img src="assets/tubmail.jpg" alt="Traficoo sur Linux" class="w-full rounded-lg mb-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 mb-2">Configuration requise :</p>
+                                <p class="text-gray-600">Kernel 5.4+ • 2GB RAM • 300MB espace disque</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50" id="mobile">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row-reverse items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pl-10">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-mobile-alt text-blue-400 text-3xl mr-4"></i>
+                            <h2 class="text-3xl font-bold text-gray-800">Applications mobiles • Bientôt disponible</h2>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Restez informé des conditions de trafic où que vous soyez avec nos applications mobiles optimisées pour iOS et Android.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Notifications en temps réel</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Interface tactile optimisée</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Synchronisation avec la version desktop</span>
+                            </li>
+                        </ul>
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="#" class="bg-black hover:bg-gray-900 text-white text-center py-3 px-4 rounded-lg font-medium transition flex items-center justify-center">
+                                <i class="fab fa-apple text-2xl mr-2"></i>
+                                <div class="text-left">
+                                    <div class="text-xs">Disponible sur</div>
+                                    <div class="text-lg">App Store</div>
+                                </div>
+                            </a>
+                            <a href="#" class="bg-green-600 hover:bg-green-700 text-white text-center py-3 px-4 rounded-lg font-medium transition flex items-center justify-center">
+                                <i class="fab fa-google-play text-2xl mr-2"></i>
+                                <div class="text-left">
+                                    <div class="text-xs">Disponible sur</div>
+                                    <div class="text-lg">Play Store</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="download-card bg-white rounded-xl p-6 border border-gray-200">
+                            <img src="assets/tubmail.jpg" alt="Traficoo Mobile" class="w-full rounded-lg mb-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 mb-2">Configuration requise :</p>
+                                <p class="text-gray-600">iOS 14+ ou Android 9+ • 200MB espace libre</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Pourquoi choisir Traficoo ?</h2>
+                <p class="text-xl text-gray-600">Des fonctionnalités puissantes pour une gestion optimale du trafic</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Temps réel</h3>
+                    <p class="text-gray-600">Données mises à jour toutes les 30 secondes directement depuis les opérateurs de transport.</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Analyses avancées</h3>
+                    <p class="text-gray-600">Outils puissants pour analyser les tendances et prévoir les congestions.</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-purple-100 text-purple-600 mb-4">
+                        <i class="fas fa-bell text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Alertes personnalisées</h3>
+                    <p class="text-gray-600">Recevez des notifications pour les lignes que vous surveillez.</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-yellow-100 text-yellow-600 mb-4">
+                        <i class="fas fa-map-marked-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Cartes interactives</h3>
+                    <p class="text-gray-600">Visualisez le trafic sur des cartes dynamiques et personnalisables.</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-red-100 text-red-600 mb-4">
+                        <i class="fas fa-database text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Historique complet</h3>
+                    <p class="text-gray-600">Accédez à l'historique des données pour vos analyses rétrospectives.</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="feature-icon bg-cyan-100 text-cyan-600 mb-4">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sécurité renforcée</h3>
+                    <p class="text-gray-600">Vos données sont chiffrées et protégées selon les meilleurs standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Prêt à optimiser votre gestion du trafic ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Téléchargez Traficoo et bénéficiez d'un accès à une nouvelle expérience</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#windows" class="bg-white hover:bg-gray-100 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg transition flex items-center">
+                    <i class="fas fa-download mr-2"></i> Télécharger maintenant
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white rounded-lg p-1 mr-3">
+                            <img src="assets/logo.png" alt="Logo Traficoo" class="h-8 w-8">
+                        </div>
+                        <h3 class="text-xl font-bold">Traficoo</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Toutes les infos trafic en un seul endroit
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://github.com/Traficoo" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Produit</h4>
+                    <ul class="space-y-2">
+                        <li><a href="accueil.html" class="text-gray-400 hover:text-white">Fonctionnalités</a></li>
+                        <li><a href="app.html" class="text-gray-400 hover:text-white">Télécharger</a></li>
+                        <li><a href="link/statut.html" class="text-gray-400 hover:text-white">Statut</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Ressources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="link/documentation.html" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="link/doc/faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="api.html" class="text-gray-400 hover:text-white">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Entreprise</h4>
+                    <ul class="space-y-2">
+                        <li><a href="careers.html" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="support.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-sm text-gray-500">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p>&copy; 2025 Traficoo. Tous droits réservés.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="confidentialite.html" class="hover:text-gray-400">Confidentialité</a>
+                        <a href="cgu.html" class="hover:text-gray-400">Conditions</a>
+                        <a href="mentions-légales.html" class="hover:text-gray-400">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if(target !== '#') {
+                    e.preventDefault();
+                    console.log(`Téléchargement pour ${target.substring(1)} cliqué`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
